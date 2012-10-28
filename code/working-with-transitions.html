@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+
+    </style>
+  </head>
+
+<body>
+    <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
+    <script type="text/javascript">
+		// d3.select("body").style("background-color", "red");
+		// d3.select("body").transition().style("background-color", "red");
+
+		/*
+		d3.select("body")
+    	  .style("background-color", "green") // make the body green
+  		.transition()
+    	  .style("background-color", "red"); // then transition to red
+    	*/
+
+    	/*
+		d3.select("body").transition()
+		    .delay(500)
+		    .each("start", function() { d3.select(this).style("background-color", "green"); })
+		    .style("background-color", "red");
+		*/
+
+		d3.select("body").transition()
+    	  .styleTween("background-color", function() { return d3.interpolate("green", "red"); });		    
+
+    </script>
+
+    Some text in the body
+</body>
+</html>
