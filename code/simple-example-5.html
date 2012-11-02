@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+</head>
+
+<body>
+    <div id="viz"></div>
+    <script type="text/javascript">
+
+    var dataset = [],
+        i = 0;
+        
+    for(i=0; i<5; i++) {
+        dataset.push(Math.round(Math.random()*100));
+    }   
+
+    // http://christopheviau.com/d3_tutorial/
+    // Binding data example
+    var sampleSVG = d3.select("#viz")
+        .append("svg")
+        .attr("width", 400)
+        .attr("height", 100);    
+        
+    sampleSVG.selectAll("circle")
+        .data(dataset)
+        .enter().append("circle")
+        .style("stroke", "gray")
+        .style("fill", "white")
+        .attr("r", 40)
+        .attr("cx", function(d, i){return i*80+40})
+        .attr("cy", 50)
+        .on("mouseover", function(){d3.select(this).style("fill", "aliceblue");})
+        .on("mouseout", function(){d3.select(this).style("fill", "white");})
+        .on("mousedown", animateFirstStep);
+
+    // A better way of chaining animation is to listen to the end event with the .each(); method to detect the end of each animation.
+    function animateFirstStep(){
+        d3.select(this)
+          .transition()            
+            .delay(0)            
+            .duration(1000)
+            .attr("r", 10)
+            .each("end", animateSecondStep);
+    };
+
+    function animateSecondStep(){
+        d3.select(this)
+          .transition()
+            .duration(1000)
+            .attr("r", 40);
+    };
+
+
+    </script>
+</body>
+</html>
