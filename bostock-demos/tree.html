@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://mbostock.github.com/d3/talk/20111018/tree.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link type="text/css" rel="stylesheet" href="./tree_files/style.css">
+    <script type="text/javascript" src="./tree_files/d3.js"></script>
+    <script type="text/javascript" src="./tree_files/d3.layout.js"></script>
+    <style type="text/css">
+
+
+.node circle {
+  cursor: pointer;
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font-size: 11px;
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+    </style>
+  <script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/document_iterator.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/find_proxy.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/get_html_text.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/global_constants.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/name_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/number_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/menu_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/string_finder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/change_sink.js"></script><meta name="document_iterator.js"><meta name="find_proxy.js"><meta name="get_html_text.js"><meta name="global_constants.js"><meta name="name_injection_builder.js"><meta name="number_injection_builder.js"><meta name="menu_injection_builder.js"><meta name="string_finder.js"><meta name="change_sink.js"><style id="wrc-middle-css" type="text/css">.wrc_whole_window{	display: none;	position: fixed; 	z-index: 2147483647;	background-color: rgba(40, 40, 40, 0.9);	word-spacing: normal !important;	margin: 0px !important;	padding: 0px !important;	border: 0px !important;	left: 0px;	top: 0px;	width: 100%;	height: 100%;	line-height: normal !important;	letter-spacing: normal !important;	overflow: hidden;}.wrc_bar_window{	display: none;	position: fixed; 	z-index: 2147483647;	background-color: rgba(60, 60, 60, 1.0);	word-spacing: normal !important;	font-family: Segoe UI, Arial Unicode MS, Arial, Sans-Serif;	margin: 0px !important;	padding: 0px !important;	border: 0px !important;	left: 0px;	top: 0px;	width: 100%;	height: 40px;	line-height: normal !important;	letter-spacing: normal !important;	color: white !important;	font-size: 13px !important;}.wrc_middle {	display: table-cell;	vertical-align: middle;	width: 100%;}.wrc_middle_main {	font-family: Segoe UI, Arial Unicode MS, Arial, Sans-Serif;	font-size: 14px;	width: 600px;	height: auto;    background: url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/background-body.jpg) repeat-x left top;	background-color: rgb(39, 53, 62);	position: relative;	margin-left: auto;	margin-right: auto;	text-align: left;}.wrc_middle_tq_main {	font-family: Segoe UI, Arial Unicode MS, Arial, Sans-Serif;	font-size: 16px;	width: 615px;	height: 460px;    background: url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/background-sitecorrect.png) no-repeat;	background-color: white;	color: black !important;	position: relative;	margin-left: auto;	margin-right: auto;	text-align: center;}.wrc_middle_logo {    background: url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/logo.jpg) no-repeat left bottom;    width: 140px;    height: 42px;    color: orange;    display: table-cell;    text-align: right;    vertical-align: middle;}.wrc_icon_warning {	margin: 20px 10px 20px 15px;	float: left;	background-color: transparent;}.wrc_middle_title {    color: #b6bec7;	height: auto;    margin: 0px auto;	font-size: 2.2em;	white-space: nowrap;	text-align: center;}.wrc_middle_hline {    height: 2px;	width: 100%;    display: block;}.wrc_middle_description {	text-align: center;	margin: 15px;	font-size: 1.4em;	padding: 20px;	height: auto;	color: white;	min-height: 3.5em;}.wrc_middle_actions_main_div {	margin-bottom: 15px;	text-align: center;}.wrc_middle_actions_blue_button div {	display: inline-block;	width: auto;	cursor: Pointer;	margin: 3px 10px 3px 10px;	color: white;	font-size: 1.2em;	font-weight: bold;}.wrc_middle_actions_blue_button {	-moz-appearance: none;	border-radius: 7px;	-moz-border-radius: 7px/7px;	border-radius: 7px/7px;	background-color: rgb(0, 173, 223) !important;	display: inline-block;	width: auto;	cursor: Pointer;	border: 2px solid #00dddd;	padding: 0px 20px 0px 20px;}.wrc_middle_actions_blue_button:hover {	background-color: rgb(0, 159, 212) !important;}.wrc_middle_actions_blue_button:active {	background-color: rgb(0, 146, 200) !important;	border: 2px solid #00aaaa;}.wrc_middle_actions_grey_button div {	display: inline-block;	width: auto;	cursor: Pointer;	margin: 3px 10px 3px 10px;	color: white !important;	font-size: 15px;	font-weight: bold;}.wrc_middle_actions_grey_button {	-moz-appearance: none;	border-radius: 7px;	-moz-border-radius: 7px/7px;	border-radius: 7px/7px;	background-color: rgb(100, 100, 100) !important;	display: inline-block;	width: auto;	cursor: Pointer;	border: 2px solid #aaaaaa;	text-decoration: none;	padding: 0px 20px 0px 20px;}.wrc_middle_actions_grey_button:hover {	background-color: rgb(120, 120, 120) !important;}.wrc_middle_actions_grey_button:active {	background-color: rgb(130, 130, 130) !important;	border: 2px solid #00aaaa;}.wrc_middle_action_low {	font-size: 0.9em;	white-space: nowrap;	cursor: Pointer;	color: grey !important;	margin: 10px 10px 0px 10px;	text-decoration: none;}.wrc_middle_action_low:hover {	color: #aa4400 !important;}.wrc_middle_actions_rest_div {	padding-top: 5px;	white-space: nowrap;	text-align: center;}.wrc_middle_action {	white-space: nowrap;	cursor: Pointer;	color: red !important;	font-size: 1.2em;	margin: 10px 10px 0px 10px;	text-decoration: none;}.wrc_middle_action:hover {	color: #aa4400 !important;}</style><script id="wrc-script-middle_window" type="text/javascript" language="JavaScript">var g_inputsCnt = 0;var g_InputThis = new Array(null, null, null, null);var g_alerted = false;/* we test the input if it includes 4 digits   (input is a part of 4 inputs for filling the credit-card number)*/function is4DigitsCardNumber(val){	var regExp = new RegExp('[0-9]{4}');	return (val.length == 4 && val.search(regExp) == 0);}/* testing the whole credit-card number 19 digits devided by three '-' symbols or   exactly 16 digits without any dividers*/function isCreditCardNumber(val){	if(val.length == 19)	{		var regExp = new RegExp('[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}');		return (val.search(regExp) == 0);	}	else if(val.length == 16)	{		var regExp = new RegExp('[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{4}');		return (val.search(regExp) == 0);	}	return false;}function CheckInputOnCreditNumber(self){	if(g_alerted)		return false;	var value = self.value;	if(self.type == 'text')	{		if(is4DigitsCardNumber(value))		{			var cont = true;			for(i = 0; i < g_inputsCnt; i++)				if(g_InputThis[i] == self)					cont = false;			if(cont && g_inputsCnt < 4)			{				g_InputThis[g_inputsCnt] = self;				g_inputsCnt++;			}		}		g_alerted = (g_inputsCnt == 4);		if(g_alerted)			g_inputsCnt = 0;		else			g_alerted = isCreditCardNumber(value);	}	return g_alerted;}function CheckInputOnPassword(self){	if(g_alerted)		return false;	var value = self.value;	if(self.type == 'password')	{		g_alerted = (value.length > 0);	}	return g_alerted;}function onInputBlur(self, bRatingOk, bFishingSite){	var bCreditNumber = CheckInputOnCreditNumber(self);	var bPassword = CheckInputOnPassword(self);	if((!bRatingOk || bFishingSite == 1) && (bCreditNumber || bPassword) )	{		var warnDiv = document.getElementById("wrcinputdiv");		if(warnDiv)		{			/* show the warning div in the middle of the screen */			warnDiv.style.left = "0px";			warnDiv.style.top = "0px";			warnDiv.style.width = "100%";			warnDiv.style.height = "100%";			document.getElementById("wrc_warn_fs").style.display = 'none';			document.getElementById("wrc_warn_cn").style.display = 'none';			if(bFishingSite)				document.getElementById("wrc_warn_fs").style.display = 'block';			else				document.getElementById("wrc_warn_cn").style.display = 'block';			warnDiv.style.display = 'table';		}	}}</script><style id="wrc-css" type="text/css">.wrcx {display:none} .r .wrcx, .osl .wrcx, .bc .wrcx, .fc .wrcx, #rhsline ol .wrcx {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/grey0-16.png") right no-repeat}
+.wrc0 {display:none} .r .wrc0, .osl .wrc0, .bc .wrc0, .fc .wrc0, #rhsline ol .wrc0 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/grey0-16.png") right no-repeat}
+.wrc11 {display:none} .r .wrc11, .osl .wrc11, .bc .wrc11, .fc .wrc11, #rhsline ol .wrc11 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green1-16.png") right no-repeat}
+.wrc12 {display:none} .r .wrc12, .osl .wrc12, .bc .wrc12, .fc .wrc12, #rhsline ol .wrc12 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green2-16.png") right no-repeat}
+.wrc13 {display:none} .r .wrc13, .osl .wrc13, .bc .wrc13, .fc .wrc13, #rhsline ol .wrc13 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green3-16.png") right no-repeat}
+.wrc21 {display:none} .r .wrc21, .osl .wrc21, .bc .wrc21, .fc .wrc21, #rhsline ol .wrc21 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow1-16.png") right no-repeat}
+.wrc22 {display:none} .r .wrc22, .osl .wrc22, .bc .wrc22, .fc .wrc22, #rhsline ol .wrc22 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow2-16.png") right no-repeat}
+.wrc23 {display:none} .r .wrc23, .osl .wrc23, .bc .wrc23, .fc .wrc23, #rhsline ol .wrc23 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow3-16.png") right no-repeat}
+.wrc31 {display:none} .r .wrc31, .osl .wrc31, .bc .wrc31, .fc .wrc31, #rhsline ol .wrc31 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red1-16.png") right no-repeat}
+.wrc32 {display:none} .r .wrc32, .osl .wrc32, .bc .wrc32, .fc .wrc32, #rhsline ol .wrc32 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red2-16.png") right no-repeat}
+.wrc33 {display:none} .r .wrc33, .osl .wrc33, .bc .wrc33, .fc .wrc33, #rhsline ol .wrc33 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red3-16.png") right no-repeat}
+.wrc_icon{margin:0;padding:0;padding-left:15px !important; margin-left: 5px; width:16px !important; height:16px !important;line-height:16px !important;}
+#wrchoverdiv{padding-bottom:20px;-webkit-border-radius: 4px; -webkit-box-shadow: 2px 2px 1px rgba(0,0,0,0.2); position:absolute; width:180px; background:transparent url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/background-body.jpg) top left repeat-x; display:none; font-family: Segoe UI, Arial Unicode MS, Arial, Sans-Serif; font-size: 14px; z-index:9999999;}
+#wrchoverdiv{cursor:default;}
+#wrchoverdiv #wrccontainer{width:180px;}
+#wrchoverdiv #wrcheader{width:140px; height:42px; background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/logo.jpg) bottom left no-repeat; text-align:right; line-height:42px; color:orange; margin:0 auto;}
+#wrchoverdiv .wrchorizontal{width:180px; height:2px; background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/horizontal-line.jpg) bottom left no-repeat;}
+#wrchoverdiv #wrccurrentvote{height:25px; line-height:25px; color:#FFF; text-align:center; text-transform:uppercase;}
+#wrchoverdiv #wrcrating{margin:5px auto; width:69px; height:55px; background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/grey-0.png) bottom left no-repeat;}
+#wrchoverdiv #wrcrating.wrcbx{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/grey-0.png);}
+#wrchoverdiv #wrcrating.wrcb0{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/grey-0.png);}
+#wrchoverdiv #wrcrating.wrcb11{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green-1.png);}
+#wrchoverdiv #wrcrating.wrcb12{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green-2.png);}
+#wrchoverdiv #wrcrating.wrcb13{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green-3.png);}
+#wrchoverdiv #wrcrating.wrcb21{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow-1.png);}
+#wrchoverdiv #wrcrating.wrcb22{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow-2.png);}
+#wrchoverdiv #wrcrating.wrcb23{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow-3.png);}
+#wrchoverdiv #wrcrating.wrcb31{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red-1.png);}
+#wrchoverdiv #wrcrating.wrcb32{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red-2.png);}
+#wrchoverdiv #wrcrating.wrcb33{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red-3.png);}
+#wrchoverdiv #wrcratingtext{margin:3px 5px; color:#FFF; text-align:center; padding:0; font-size:12px;}
+#wrchoverdiv #wrcweighttext{margin:3px 5px; color:#FFF; text-align:center; padding:0; font-size:12px;}
+#wrchoverdiv #wrcflags{width:150px; height:70px; margin:0 auto;}
+#wrchoverdiv .wrcicon{width:30px; height:30px; float:left;}
+#wrchoverdiv #wrcicon_shopping{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/shopping-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_shopping.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/shopping-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_social{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/social-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_social.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/social-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_news{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/news-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_news.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/news-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_it{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/it-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_it.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/it-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_corporate{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/corporate-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_corporate.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/corporate-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_pornography{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/pornography-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_pornography.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/pornography-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_violence{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/violence-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_violence.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/violence-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_gambling{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/gambling-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_gambling.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/gambling-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_drugs{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/drugs-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_drugs.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/drugs-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_illegal{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/illegal-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_illegal.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/illegal-small-selected.png) top left no-repeat;}
+</style></head>
+  <body>
+    <div id="body">
+      <div id="footer">
+        d3.layout.tree
+        <div class="hint">click or option-click to expand or collapse</div>
+      </div>
+    <svg width="1280" height="800"><g transform="translate(120,20)"><path class="link" d="M180,627.8260869565217C270,627.8260869565217 270,528.695652173913 360,528.695652173913"></path><path class="link" d="M180,627.8260869565217C270,627.8260869565217 270,561.7391304347826 360,561.7391304347826"></path><path class="link" d="M180,627.8260869565217C270,627.8260869565217 270,594.7826086956522 360,594.7826086956522"></path><path class="link" d="M180,627.8260869565217C270,627.8260869565217 270,627.8260869565217 360,627.8260869565217"></path><path class="link" d="M180,627.8260869565217C270,627.8260869565217 270,660.8695652173913 360,660.8695652173913"></path><path class="link" d="M180,627.8260869565217C270,627.8260869565217 270,693.9130434782609 360,693.9130434782609"></path><path class="link" d="M180,627.8260869565217C270,627.8260869565217 270,726.9565217391305 360,726.9565217391305"></path><path class="link" d="M360,165.2173913043478C450,165.2173913043478 450,33.04347826086956 540,33.04347826086956"></path><path class="link" d="M360,165.2173913043478C450,165.2173913043478 450,66.08695652173913 540,66.08695652173913"></path><path class="link" d="M360,165.2173913043478C450,165.2173913043478 450,99.13043478260869 540,99.13043478260869"></path><path class="link" d="M360,165.2173913043478C450,165.2173913043478 450,132.17391304347825 540,132.17391304347825"></path><path class="link" d="M360,165.2173913043478C450,165.2173913043478 450,165.2173913043478 540,165.2173913043478"></path><path class="link" d="M360,165.2173913043478C450,165.2173913043478 450,198.26086956521738 540,198.26086956521738"></path><path class="link" d="M360,165.2173913043478C450,165.2173913043478 450,231.30434782608697 540,231.30434782608697"></path><path class="link" d="M360,165.2173913043478C450,165.2173913043478 450,264.3478260869565 540,264.3478260869565"></path><path class="link" d="M360,165.2173913043478C450,165.2173913043478 450,297.3913043478261 540,297.3913043478261"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,99.13043478260869 360,99.13043478260869"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,132.17391304347825 360,132.17391304347825"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,165.2173913043478 360,165.2173913043478"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,198.26086956521738 360,198.26086956521738"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,231.30434782608697 360,231.30434782608697"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,264.3478260869565 360,264.3478260869565"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,297.3913043478261 360,297.3913043478261"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,330.4347826086956 360,330.4347826086956"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,363.47826086956525 360,363.47826086956525"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,396.52173913043475 360,396.52173913043475"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,429.5652173913043 360,429.5652173913043"></path><path class="link" d="M180,280.8695652173913C270,280.8695652173913 270,462.60869565217394 360,462.60869565217394"></path><path class="link" d="M0,437.82608695652175C90,437.82608695652175 90,247.82608695652175 180,247.82608695652175"></path><path class="link" d="M0,437.82608695652175C90,437.82608695652175 90,280.8695652173913 180,280.8695652173913"></path><path class="link" d="M0,437.82608695652175C90,437.82608695652175 90,324.2391304347826 180,324.2391304347826"></path><path class="link" d="M0,437.82608695652175C90,437.82608695652175 90,367.6086956521739 180,367.6086956521739"></path><path class="link" d="M0,437.82608695652175C90,437.82608695652175 90,410.97826086956525 180,410.97826086956525"></path><path class="link" d="M0,437.82608695652175C90,437.82608695652175 90,454.3478260869565 180,454.3478260869565"></path><path class="link" d="M0,437.82608695652175C90,437.82608695652175 90,497.7173913043478 180,497.7173913043478"></path><path class="link" d="M0,437.82608695652175C90,437.82608695652175 90,541.0869565217391 180,541.0869565217391"></path><path class="link" d="M0,437.82608695652175C90,437.82608695652175 90,584.4565217391305 180,584.4565217391305"></path><path class="link" d="M0,437.82608695652175C90,437.82608695652175 90,627.8260869565217 180,627.8260869565217"></path><path class="link" d="M360,528.695652173913C450,528.695652173913 450,462.60869565217394 540,462.60869565217394"></path><path class="link" d="M360,528.695652173913C450,528.695652173913 450,495.6521739130435 540,495.6521739130435"></path><path class="link" d="M360,528.695652173913C450,528.695652173913 450,528.695652173913 540,528.695652173913"></path><path class="link" d="M360,528.695652173913C450,528.695652173913 450,561.7391304347826 540,561.7391304347826"></path><path class="link" d="M360,528.695652173913C450,528.695652173913 450,594.7826086956522 540,594.7826086956522"></path><g class="node" transform="translate(360,726.9565217391305)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Visualization</text></g><g class="node" transform="translate(360,693.9130434782609)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">operator</text></g><g class="node" transform="translate(360,660.8695652173913)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">legend</text></g><g class="node" transform="translate(360,627.8260869565217)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">events</text></g><g class="node" transform="translate(360,594.7826086956522)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">data</text></g><g class="node" transform="translate(360,561.7391304347826)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">controls</text></g><g class="node" transform="translate(360,528.695652173913)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">axis</text></g><g class="node" transform="translate(180,627.8260869565217)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">vis</text></g><g class="node" transform="translate(180,584.4565217391305)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">util</text></g><g class="node" transform="translate(180,541.0869565217391)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">scale</text></g><g class="node" transform="translate(180,497.7173913043478)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">query</text></g><g class="node" transform="translate(180,454.3478260869565)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">physics</text></g><g class="node" transform="translate(180,410.97826086956525)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">flex</text></g><g class="node" transform="translate(180,367.6086956521739)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">display</text></g><g class="node" transform="translate(180,324.2391304347826)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">data</text></g><g class="node" transform="translate(360,462.60869565217394)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Tween</text></g><g class="node" transform="translate(360,429.5652173913043)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">TransitionEvent</text></g><g class="node" transform="translate(360,396.52173913043475)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Transitioner</text></g><g class="node" transform="translate(360,363.47826086956525)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Transition</text></g><g class="node" transform="translate(360,330.4347826086956)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Sequence</text></g><g class="node" transform="translate(360,297.3913043478261)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Scheduler</text></g><g class="node" transform="translate(360,264.3478260869565)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Pause</text></g><g class="node" transform="translate(360,231.30434782608697)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Parallel</text></g><g class="node" transform="translate(360,198.26086956521738)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">ISchedulable</text></g><g class="node" transform="translate(540,297.3913043478261)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">RectangleInterpolator</text></g><g class="node" transform="translate(540,264.3478260869565)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">PointInterpolator</text></g><g class="node" transform="translate(540,231.30434782608697)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">ObjectInterpolator</text></g><g class="node" transform="translate(540,198.26086956521738)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">NumberInterpolator</text></g><g class="node" transform="translate(540,165.2173913043478)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">MatrixInterpolator</text></g><g class="node" transform="translate(540,132.17391304347825)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Interpolator</text></g><g class="node" transform="translate(540,99.13043478260869)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">DateInterpolator</text></g><g class="node" transform="translate(540,66.08695652173913)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">ColorInterpolator</text></g><g class="node" transform="translate(540,33.04347826086956)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">ArrayInterpolator</text></g><g class="node" transform="translate(360,165.2173913043478)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">interpolate</text></g><g class="node" transform="translate(360,132.17391304347825)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">FunctionSequence</text></g><g class="node" transform="translate(360,99.13043478260869)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Easing</text></g><g class="node" transform="translate(180,280.8695652173913)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">animate</text></g><g class="node" transform="translate(180,247.82608695652175)"><circle r="4.5" style="fill: #b0c4de; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">analytics</text></g><g class="node" transform="translate(0,437.82608695652175)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="-10" dy=".35em" text-anchor="end" style="fill-opacity: 1; ">flare</text></g><g class="node" transform="translate(540,594.7826086956522)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">CartesianAxes</text></g><g class="node" transform="translate(540,561.7391304347826)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">AxisLabel</text></g><g class="node" transform="translate(540,528.695652173913)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">AxisGridLine</text></g><g class="node" transform="translate(540,495.6521739130435)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Axis</text></g><g class="node" transform="translate(540,462.60869565217394)"><circle r="4.5" style="fill: #ffffff; "></circle><text x="10" dy=".35em" text-anchor="start" style="fill-opacity: 1; ">Axes</text></g></g></svg></div>
+    <script type="text/javascript">
+
+var m = [20, 120, 20, 120],
+    w = 1280 - m[1] - m[3],
+    h = 800 - m[0] - m[2],
+    i = 0,
+    root;
+
+var tree = d3.layout.tree()
+    .size([h, w]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+var vis = d3.select("#body").append("svg:svg")
+    .attr("width", w + m[1] + m[3])
+    .attr("height", h + m[0] + m[2])
+  .append("svg:g")
+    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+d3.json("flare.json", function(json) {
+  root = json;
+  root.x0 = h / 2;
+  root.y0 = 0;
+
+  function toggleAll(d) {
+    if (d.children) {
+      d.children.forEach(toggleAll);
+      toggle(d);
+    }
+  }
+
+  // Initialize the display to show a few nodes.
+  root.children.forEach(toggleAll);
+  toggle(root.children[1]);
+  toggle(root.children[1].children[2]);
+  toggle(root.children[9]);
+  toggle(root.children[9].children[0]);
+
+  update(root);
+});
+
+function update(source) {
+  var duration = d3.event && d3.event.altKey ? 5000 : 500;
+
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse();
+
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d) { d.y = d.depth * 180; });
+
+  // Update the nodes…
+  var node = vis.selectAll("g.node")
+      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+  // Enter any new nodes at the parent's previous position.
+  var nodeEnter = node.enter().append("svg:g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+      .on("click", function(d) { toggle(d); update(d); });
+
+  nodeEnter.append("svg:circle")
+      .attr("r", 1e-6)
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeEnter.append("svg:text")
+      .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+      .attr("dy", ".35em")
+      .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+      .text(function(d) { return d.name; })
+      .style("fill-opacity", 1e-6);
+
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+  nodeUpdate.select("circle")
+      .attr("r", 4.5)
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeUpdate.select("text")
+      .style("fill-opacity", 1);
+
+  // Transition exiting nodes to the parent's new position.
+  var nodeExit = node.exit().transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+      .remove();
+
+  nodeExit.select("circle")
+      .attr("r", 1e-6);
+
+  nodeExit.select("text")
+      .style("fill-opacity", 1e-6);
+
+  // Update the links…
+  var link = vis.selectAll("path.link")
+      .data(tree.links(nodes), function(d) { return d.target.id; });
+
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("svg:path", "g")
+      .attr("class", "link")
+      .attr("d", function(d) {
+        var o = {x: source.x0, y: source.y0};
+        return diagonal({source: o, target: o});
+      })
+    .transition()
+      .duration(duration)
+      .attr("d", diagonal);
+
+  // Transition links to their new position.
+  link.transition()
+      .duration(duration)
+      .attr("d", diagonal);
+
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+      .duration(duration)
+      .attr("d", function(d) {
+        var o = {x: source.x, y: source.y};
+        return diagonal({source: o, target: o});
+      })
+      .remove();
+
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+    d.x0 = d.x;
+    d.y0 = d.y;
+  });
+}
+
+// Toggle children.
+function toggle(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+}
+
+    </script>
+  
+
+<div id="wrchoverdiv"><div id="wrccontainer"><div id="wrcheader"><div id="wrctitle"> WebRep</div></div><div class="wrchorizontal"></div><div id="wrccurrentvote">Overall rating</div><div class="wrchorizontal"></div><div id="wrcrating"></div><div id="wrcratingtext">This site has no rating</div><div id="wrcweighttext">(not enough votes)</div><div id="wrcflags"><div id="wrcicon_shopping" class="wrcicon"></div><div id="wrcicon_social" class="wrcicon"></div><div id="wrcicon_news" class="wrcicon"></div><div id="wrcicon_it" class="wrcicon"></div><div id="wrcicon_corporate" class="wrcicon"></div><div id="wrcicon_pornography" class="wrcicon"></div><div id="wrcicon_violence" class="wrcicon"></div><div id="wrcicon_gambling" class="wrcicon"></div><div id="wrcicon_drugs" class="wrcicon"></div><div id="wrcicon_illegal" class="wrcicon"></div></div><div class="wrchorizontal"></div></div></div></body><span id="skype_highlighting_settings" display="none" autoextractnumbers="1"></span><object id="skype_plugin_object" location.href="http://mbostock.github.com/d3/talk/20111018/tree.html" location.hostname="mbostock.github.com" style="position: absolute; visibility: hidden; left: -100px; top: -100px; " width="0" height="0" type="application/x-vnd.skype.click2call.chrome.5.7.0"></object></html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://mbostock.github.com/d3/talk/20111116/transitions.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link type="text/css" rel="stylesheet" href="./transitions_files/style.css">
+    <style type="text/css">
+
+svg {
+  font-size: 14px;
+}
+
+.line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+
+    </style>
+  <script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/document_iterator.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/find_proxy.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/get_html_text.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/global_constants.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/name_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/number_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/menu_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/string_finder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/change_sink.js"></script><meta name="document_iterator.js"><meta name="find_proxy.js"><meta name="get_html_text.js"><meta name="global_constants.js"><meta name="name_injection_builder.js"><meta name="number_injection_builder.js"><meta name="menu_injection_builder.js"><meta name="string_finder.js"><meta name="change_sink.js"><style id="wrc-middle-css" type="text/css">.wrc_whole_window{	display: none;	position: fixed; 	z-index: 2147483647;	background-color: rgba(40, 40, 40, 0.9);	word-spacing: normal !important;	margin: 0px !important;	padding: 0px !important;	border: 0px !important;	left: 0px;	top: 0px;	width: 100%;	height: 100%;	line-height: normal !important;	letter-spacing: normal !important;	overflow: hidden;}.wrc_bar_window{	display: none;	position: fixed; 	z-index: 2147483647;	background-color: rgba(60, 60, 60, 1.0);	word-spacing: normal !important;	font-family: Segoe UI, Arial Unicode MS, Arial, Sans-Serif;	margin: 0px !important;	padding: 0px !important;	border: 0px !important;	left: 0px;	top: 0px;	width: 100%;	height: 40px;	line-height: normal !important;	letter-spacing: normal !important;	color: white !important;	font-size: 13px !important;}.wrc_middle {	display: table-cell;	vertical-align: middle;	width: 100%;}.wrc_middle_main {	font-family: Segoe UI, Arial Unicode MS, Arial, Sans-Serif;	font-size: 14px;	width: 600px;	height: auto;    background: url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/background-body.jpg) repeat-x left top;	background-color: rgb(39, 53, 62);	position: relative;	margin-left: auto;	margin-right: auto;	text-align: left;}.wrc_middle_tq_main {	font-family: Segoe UI, Arial Unicode MS, Arial, Sans-Serif;	font-size: 16px;	width: 615px;	height: 460px;    background: url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/background-sitecorrect.png) no-repeat;	background-color: white;	color: black !important;	position: relative;	margin-left: auto;	margin-right: auto;	text-align: center;}.wrc_middle_logo {    background: url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/logo.jpg) no-repeat left bottom;    width: 140px;    height: 42px;    color: orange;    display: table-cell;    text-align: right;    vertical-align: middle;}.wrc_icon_warning {	margin: 20px 10px 20px 15px;	float: left;	background-color: transparent;}.wrc_middle_title {    color: #b6bec7;	height: auto;    margin: 0px auto;	font-size: 2.2em;	white-space: nowrap;	text-align: center;}.wrc_middle_hline {    height: 2px;	width: 100%;    display: block;}.wrc_middle_description {	text-align: center;	margin: 15px;	font-size: 1.4em;	padding: 20px;	height: auto;	color: white;	min-height: 3.5em;}.wrc_middle_actions_main_div {	margin-bottom: 15px;	text-align: center;}.wrc_middle_actions_blue_button div {	display: inline-block;	width: auto;	cursor: Pointer;	margin: 3px 10px 3px 10px;	color: white;	font-size: 1.2em;	font-weight: bold;}.wrc_middle_actions_blue_button {	-moz-appearance: none;	border-radius: 7px;	-moz-border-radius: 7px/7px;	border-radius: 7px/7px;	background-color: rgb(0, 173, 223) !important;	display: inline-block;	width: auto;	cursor: Pointer;	border: 2px solid #00dddd;	padding: 0px 20px 0px 20px;}.wrc_middle_actions_blue_button:hover {	background-color: rgb(0, 159, 212) !important;}.wrc_middle_actions_blue_button:active {	background-color: rgb(0, 146, 200) !important;	border: 2px solid #00aaaa;}.wrc_middle_actions_grey_button div {	display: inline-block;	width: auto;	cursor: Pointer;	margin: 3px 10px 3px 10px;	color: white !important;	font-size: 15px;	font-weight: bold;}.wrc_middle_actions_grey_button {	-moz-appearance: none;	border-radius: 7px;	-moz-border-radius: 7px/7px;	border-radius: 7px/7px;	background-color: rgb(100, 100, 100) !important;	display: inline-block;	width: auto;	cursor: Pointer;	border: 2px solid #aaaaaa;	text-decoration: none;	padding: 0px 20px 0px 20px;}.wrc_middle_actions_grey_button:hover {	background-color: rgb(120, 120, 120) !important;}.wrc_middle_actions_grey_button:active {	background-color: rgb(130, 130, 130) !important;	border: 2px solid #00aaaa;}.wrc_middle_action_low {	font-size: 0.9em;	white-space: nowrap;	cursor: Pointer;	color: grey !important;	margin: 10px 10px 0px 10px;	text-decoration: none;}.wrc_middle_action_low:hover {	color: #aa4400 !important;}.wrc_middle_actions_rest_div {	padding-top: 5px;	white-space: nowrap;	text-align: center;}.wrc_middle_action {	white-space: nowrap;	cursor: Pointer;	color: red !important;	font-size: 1.2em;	margin: 10px 10px 0px 10px;	text-decoration: none;}.wrc_middle_action:hover {	color: #aa4400 !important;}</style><script id="wrc-script-middle_window" type="text/javascript" language="JavaScript">var g_inputsCnt = 0;var g_InputThis = new Array(null, null, null, null);var g_alerted = false;/* we test the input if it includes 4 digits   (input is a part of 4 inputs for filling the credit-card number)*/function is4DigitsCardNumber(val){	var regExp = new RegExp('[0-9]{4}');	return (val.length == 4 && val.search(regExp) == 0);}/* testing the whole credit-card number 19 digits devided by three '-' symbols or   exactly 16 digits without any dividers*/function isCreditCardNumber(val){	if(val.length == 19)	{		var regExp = new RegExp('[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}');		return (val.search(regExp) == 0);	}	else if(val.length == 16)	{		var regExp = new RegExp('[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{4}');		return (val.search(regExp) == 0);	}	return false;}function CheckInputOnCreditNumber(self){	if(g_alerted)		return false;	var value = self.value;	if(self.type == 'text')	{		if(is4DigitsCardNumber(value))		{			var cont = true;			for(i = 0; i < g_inputsCnt; i++)				if(g_InputThis[i] == self)					cont = false;			if(cont && g_inputsCnt < 4)			{				g_InputThis[g_inputsCnt] = self;				g_inputsCnt++;			}		}		g_alerted = (g_inputsCnt == 4);		if(g_alerted)			g_inputsCnt = 0;		else			g_alerted = isCreditCardNumber(value);	}	return g_alerted;}function CheckInputOnPassword(self){	if(g_alerted)		return false;	var value = self.value;	if(self.type == 'password')	{		g_alerted = (value.length > 0);	}	return g_alerted;}function onInputBlur(self, bRatingOk, bFishingSite){	var bCreditNumber = CheckInputOnCreditNumber(self);	var bPassword = CheckInputOnPassword(self);	if((!bRatingOk || bFishingSite == 1) && (bCreditNumber || bPassword) )	{		var warnDiv = document.getElementById("wrcinputdiv");		if(warnDiv)		{			/* show the warning div in the middle of the screen */			warnDiv.style.left = "0px";			warnDiv.style.top = "0px";			warnDiv.style.width = "100%";			warnDiv.style.height = "100%";			document.getElementById("wrc_warn_fs").style.display = 'none';			document.getElementById("wrc_warn_cn").style.display = 'none';			if(bFishingSite)				document.getElementById("wrc_warn_fs").style.display = 'block';			else				document.getElementById("wrc_warn_cn").style.display = 'block';			warnDiv.style.display = 'table';		}	}}</script><style id="wrc-css" type="text/css">.wrcx {display:none} .r .wrcx, .osl .wrcx, .bc .wrcx, .fc .wrcx, #rhsline ol .wrcx {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/grey0-16.png") right no-repeat}
+.wrc0 {display:none} .r .wrc0, .osl .wrc0, .bc .wrc0, .fc .wrc0, #rhsline ol .wrc0 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/grey0-16.png") right no-repeat}
+.wrc11 {display:none} .r .wrc11, .osl .wrc11, .bc .wrc11, .fc .wrc11, #rhsline ol .wrc11 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green1-16.png") right no-repeat}
+.wrc12 {display:none} .r .wrc12, .osl .wrc12, .bc .wrc12, .fc .wrc12, #rhsline ol .wrc12 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green2-16.png") right no-repeat}
+.wrc13 {display:none} .r .wrc13, .osl .wrc13, .bc .wrc13, .fc .wrc13, #rhsline ol .wrc13 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green3-16.png") right no-repeat}
+.wrc21 {display:none} .r .wrc21, .osl .wrc21, .bc .wrc21, .fc .wrc21, #rhsline ol .wrc21 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow1-16.png") right no-repeat}
+.wrc22 {display:none} .r .wrc22, .osl .wrc22, .bc .wrc22, .fc .wrc22, #rhsline ol .wrc22 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow2-16.png") right no-repeat}
+.wrc23 {display:none} .r .wrc23, .osl .wrc23, .bc .wrc23, .fc .wrc23, #rhsline ol .wrc23 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow3-16.png") right no-repeat}
+.wrc31 {display:none} .r .wrc31, .osl .wrc31, .bc .wrc31, .fc .wrc31, #rhsline ol .wrc31 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red1-16.png") right no-repeat}
+.wrc32 {display:none} .r .wrc32, .osl .wrc32, .bc .wrc32, .fc .wrc32, #rhsline ol .wrc32 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red2-16.png") right no-repeat}
+.wrc33 {display:none} .r .wrc33, .osl .wrc33, .bc .wrc33, .fc .wrc33, #rhsline ol .wrc33 {display:inline; background: url("chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red3-16.png") right no-repeat}
+.wrc_icon{margin:0;padding:0;padding-left:15px !important; margin-left: 5px; width:16px !important; height:16px !important;line-height:16px !important;}
+#wrchoverdiv{padding-bottom:20px;-webkit-border-radius: 4px; -webkit-box-shadow: 2px 2px 1px rgba(0,0,0,0.2); position:absolute; width:180px; background:transparent url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/background-body.jpg) top left repeat-x; display:none; font-family: Segoe UI, Arial Unicode MS, Arial, Sans-Serif; font-size: 14px; z-index:9999999;}
+#wrchoverdiv{cursor:default;}
+#wrchoverdiv #wrccontainer{width:180px;}
+#wrchoverdiv #wrcheader{width:140px; height:42px; background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/logo.jpg) bottom left no-repeat; text-align:right; line-height:42px; color:orange; margin:0 auto;}
+#wrchoverdiv .wrchorizontal{width:180px; height:2px; background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/horizontal-line.jpg) bottom left no-repeat;}
+#wrchoverdiv #wrccurrentvote{height:25px; line-height:25px; color:#FFF; text-align:center; text-transform:uppercase;}
+#wrchoverdiv #wrcrating{margin:5px auto; width:69px; height:55px; background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/grey-0.png) bottom left no-repeat;}
+#wrchoverdiv #wrcrating.wrcbx{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/grey-0.png);}
+#wrchoverdiv #wrcrating.wrcb0{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/grey-0.png);}
+#wrchoverdiv #wrcrating.wrcb11{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green-1.png);}
+#wrchoverdiv #wrcrating.wrcb12{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green-2.png);}
+#wrchoverdiv #wrcrating.wrcb13{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/green-3.png);}
+#wrchoverdiv #wrcrating.wrcb21{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow-1.png);}
+#wrchoverdiv #wrcrating.wrcb22{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow-2.png);}
+#wrchoverdiv #wrcrating.wrcb23{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/yellow-3.png);}
+#wrchoverdiv #wrcrating.wrcb31{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red-1.png);}
+#wrchoverdiv #wrcrating.wrcb32{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red-2.png);}
+#wrchoverdiv #wrcrating.wrcb33{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/red-3.png);}
+#wrchoverdiv #wrcratingtext{margin:3px 5px; color:#FFF; text-align:center; padding:0; font-size:12px;}
+#wrchoverdiv #wrcweighttext{margin:3px 5px; color:#FFF; text-align:center; padding:0; font-size:12px;}
+#wrchoverdiv #wrcflags{width:150px; height:70px; margin:0 auto;}
+#wrchoverdiv .wrcicon{width:30px; height:30px; float:left;}
+#wrchoverdiv #wrcicon_shopping{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/shopping-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_shopping.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/shopping-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_social{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/social-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_social.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/social-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_news{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/news-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_news.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/news-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_it{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/it-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_it.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/it-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_corporate{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/corporate-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_corporate.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/corporate-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_pornography{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/pornography-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_pornography.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/pornography-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_violence{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/violence-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_violence.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/violence-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_gambling{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/gambling-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_gambling.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/gambling-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_drugs{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/drugs-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_drugs.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/drugs-small-selected.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_illegal{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/illegal-small-disable.png) top left no-repeat;}
+#wrchoverdiv #wrcicon_illegal.selected{background:url(chrome-extension://icmlaeflemplmjndnaapfdbbnpncnbda/skin/images/icons/illegal-small-selected.png) top left no-repeat;}
+</style></head>
+  <body>
+    <h2>flexible transitions</h2>
+    <script type="text/javascript" src="./transitions_files/d3.js"></script>
+    <script type="text/javascript" src="./transitions_files/d3.csv.js"></script>
+    <script type="text/javascript" src="./transitions_files/d3.geo.js"></script>
+    <script type="text/javascript" src="./transitions_files/d3.geom.js"></script>
+    <script type="text/javascript" src="./transitions_files/d3.layout.js"></script>
+    <script type="text/javascript" src="./transitions_files/d3.time.js"></script>
+    <script type="text/javascript">
+
+var m = [80, 160, 160, 160],
+    w = 1280 - m[1] - m[3],
+    h = 800 - m[0] - m[2];
+
+var x = d3.time.scale().range([0, w]),
+    y = d3.scale.linear().range([h / 4 - 20, 0]),
+    delay = 500,
+    duration,
+    rate;
+
+var color = d3.scale.category10();
+
+var svg = d3.select("body").append("svg:svg")
+    .attr("width", w + m[1] + m[3])
+    .attr("height", h + m[0] + m[2])
+  .append("svg:g")
+    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+var stocks,
+    symbols;
+
+// A line generator, for the dark stroke.
+var line = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.price); });
+
+// A line generator, for the dark stroke.
+var axis = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d) { return x(d.date); })
+    .y(h);
+
+// A area generator, for the dark stroke.
+var area = d3.svg.area()
+    .interpolate("basis")
+    .x(function(d) { return x(d.date); })
+    .y0(h / 4 - 20)
+    .y1(function(d) { return y(d.price); });
+
+d3.csv("stocks.csv", function(data) {
+  var parse = d3.time.format("%b %Y").parse,
+      filter = {AAPL: 1, AMZN: 1, MSFT: 1, IBM: 1};
+
+  stocks = data.filter(function(d) { return d.symbol in filter; });
+
+  // Nest stock values by symbol.
+  symbols = d3.nest()
+      .key(function(d) { return d.symbol; })
+      .entries(stocks);
+
+  // Parse dates and numbers. We assume values are sorted by date.
+  // Also compute the maximum price per symbol, needed for the y-domain.
+  symbols.forEach(function(s) {
+    s.values.forEach(function(d) { d.date = parse(d.date); d.price = +d.price; });
+    s.maxPrice = d3.max(s.values, function(d) { return d.price; });
+    s.sumPrice = d3.sum(s.values, function(d) { return d.price; });
+  });
+
+  // Sort by maximum price, descending.
+  symbols.sort(function(a, b) { return b.maxPrice - a.maxPrice; });
+
+  // Compute the minimum and maximum date across symbols.
+  x.domain([
+    d3.min(symbols, function(d) { return d.values[0].date; }),
+    d3.max(symbols, function(d) { return d.values[d.values.length - 1].date; })
+  ]);
+
+  var g = svg.selectAll("g")
+      .data(symbols)
+    .enter().append("svg:g")
+      .attr("class", "symbol");
+
+  d3.select(window).on("click", start);
+});
+
+function start() {
+  d3.select(window).on("click", null);
+  duration = d3.event.altKey ? 7500 : 750;
+  rate = duration / 100;
+  lines();
+}
+
+function stop() {
+  svg.selectAll("*").remove();
+  svg.selectAll("g").data(symbols).enter().append("svg:g").attr("class", "symbol");
+  d3.select(window).on("click", start);
+}
+
+function lines() {
+  x = d3.time.scale().range([0, w]);
+  y = d3.scale.linear().range([h / 4 - 20, 0]);
+
+  // Compute the minimum and maximum date across symbols.
+  x.domain([
+    d3.min(symbols, function(d) { return d.values[0].date; }),
+    d3.max(symbols, function(d) { return d.values[d.values.length - 1].date; })
+  ]);
+
+  var g = svg.selectAll(".symbol")
+      .attr("transform", function(d, i) { return "translate(0," + (i * h / 4 + 10) + ")"; });
+
+  g.each(function(d) {
+    var e = d3.select(this);
+
+    e.append("svg:path")
+        .attr("class", "line");
+
+    e.append("svg:circle")
+        .attr("r", 5)
+        .style("fill", function(d) { return color(d.key); })
+        .style("stroke", "#000")
+        .style("stroke-width", "2px");
+
+    e.append("svg:text")
+        .attr("x", 12)
+        .attr("dy", ".31em")
+        .text(d.key);
+  });
+
+  function draw(k) {
+    g.each(function(d) {
+      var e = d3.select(this);
+      y.domain([0, d.maxPrice]);
+
+      e.select("path")
+          .attr("d", function(d) { return line(d.values.slice(0, k + 1)); });
+
+      e.selectAll("circle, text")
+          .data(function(d) { return [d.values[k], d.values[k]]; })
+          .attr("transform", function(d) { return "translate(" + x(d.date) + "," + y(d.price) + ")"; });
+    });
+  }
+
+  var k = 1, n = symbols[0].values.length;
+  d3.timer(function() {
+    draw(k);
+    if ((k += 2) >= n - 1) {
+      draw(n - 1);
+      setTimeout(horizons, 500);
+      return true;
+    }
+  });
+}
+
+function horizons() {
+  svg.insert("svg:defs", ".symbol")
+    .append("svg:clipPath")
+      .attr("id", "clip")
+    .append("svg:rect")
+      .attr("width", w + 60)
+      .attr("height", h / 4 - 20);
+
+  var color = d3.scale.ordinal()
+      .range(["#c6dbef", "#9ecae1", "#6baed6"]);
+
+  var g = svg.selectAll(".symbol")
+      .attr("clip-path", "url(#clip)");
+
+  area
+      .y0(h / 4 - 20);
+
+  g.select("circle").transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + (w) + "," + (-h / 4) + ")"; })
+      .remove();
+
+  g.select("text").transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + (w) + "," + (h / 4 - 20) + ")"; })
+      .attr("dy", "0em");
+
+  g.each(function(d) {
+    y.domain([0, d.maxPrice]);
+
+    d3.select(this).selectAll(".area")
+        .data(d3.range(3))
+      .enter().insert("svg:path", ".line")
+        .attr("class", "area")
+        .attr("transform", function(d) { return "translate(0," + (d * (h / 4 - 20)) + ")"; })
+        .attr("d", area(d.values))
+        .style("fill", function(d, i) { return color(i); })
+        .style("fill-opacity", 1e-6);
+
+    y.domain([0, d.maxPrice / 3]);
+
+    d3.select(this).selectAll(".line").transition()
+        .duration(duration)
+        .attr("d", line(d.values))
+        .style("stroke-opacity", 1e-6);
+
+    d3.select(this).selectAll(".area").transition()
+        .duration(duration)
+        .style("fill-opacity", 1)
+        .attr("d", area(d.values))
+        .each("end", function() { d3.select(this).style("fill-opacity", null); });
+  });
+
+  setTimeout(areas, duration + delay);
+}
+
+function areas() {
+  var g = svg.selectAll(".symbol");
+
+  axis
+      .y(h / 4 - 21);
+
+  g.select(".line")
+      .attr("d", function(d) { return axis(d.values); });
+
+  g.each(function(d) {
+    y.domain([0, d.maxPrice]);
+
+    d3.select(this).select(".line").transition()
+        .duration(duration)
+        .style("stroke-opacity", 1)
+        .each("end", function() { d3.select(this).style("stroke-opacity", null); });
+
+    d3.select(this).selectAll(".area")
+        .filter(function(d, i) { return i; })
+      .transition()
+        .duration(duration)
+        .style("fill-opacity", 1e-6)
+        .attr("d", area(d.values))
+        .remove();
+
+    d3.select(this).selectAll(".area")
+        .filter(function(d, i) { return !i; })
+      .transition()
+        .duration(duration)
+        .style("fill", color(d.key))
+        .attr("d", area(d.values));
+  });
+
+  svg.select("defs").transition()
+      .duration(duration)
+      .remove();
+
+  g.transition()
+      .duration(duration)
+      .each("end", function() { d3.select(this).attr("clip-path", null); });
+
+  setTimeout(stackedArea, duration + delay);
+}
+
+function stackedArea() {
+  var stack = d3.layout.stack()
+      .values(function(d) { return d.values; })
+      .x(function(d) { return d.date; })
+      .y(function(d) { return d.price; })
+      .out(function(d, y0, y) { d.price0 = y0; })
+      .order("reverse");
+
+  stack(symbols);
+
+  y
+      .domain([0, d3.max(symbols[0].values.map(function(d) { return d.price + d.price0; }))])
+      .range([h, 0]);
+
+  line
+      .y(function(d) { return y(d.price0); });
+
+  area
+      .y0(function(d) { return y(d.price0); })
+      .y1(function(d) { return y(d.price0 + d.price); });
+
+  var t = svg.selectAll(".symbol").transition()
+      .duration(duration)
+      .attr("transform", "translate(0,0)")
+      .each("end", function() { d3.select(this).attr("transform", null); });
+
+  t.select("path.area")
+      .attr("d", function(d) { return area(d.values); });
+
+  t.select("path.line")
+      .style("stroke-opacity", function(d, i) { return i < 3 ? 1e-6 : 1; })
+      .attr("d", function(d) { return line(d.values); });
+
+  t.select("text")
+      .attr("transform", function(d) { d = d.values[d.values.length - 1]; return "translate(" + (w) + "," + y(d.price / 2 + d.price0) + ")"; });
+
+  setTimeout(streamgraph, duration + delay);
+}
+
+function streamgraph() {
+  var stack = d3.layout.stack()
+      .values(function(d) { return d.values; })
+      .x(function(d) { return d.date; })
+      .y(function(d) { return d.price; })
+      .out(function(d, y0, y) { d.price0 = y0; })
+      .order("reverse")
+      .offset("wiggle");
+
+  stack(symbols);
+
+  line
+      .y(function(d) { return y(d.price0); });
+
+  var t = svg.selectAll(".symbol").transition()
+      .duration(duration);
+
+  t.select("path.area")
+      .attr("d", function(d) { return area(d.values); });
+
+  t.select("path.line")
+      .style("stroke-opacity", 1e-6)
+      .attr("d", function(d) { return line(d.values); });
+
+  t.select("text")
+      .attr("transform", function(d) { d = d.values[d.values.length - 1]; return "translate(" + (w) + "," + y(d.price / 2 + d.price0) + ")"; });
+
+  setTimeout(overlappingArea, duration + delay);
+}
+
+function overlappingArea() {
+  var g = svg.selectAll(".symbol");
+
+  line
+      .y(function(d) { return y(d.price0 + d.price); });
+
+  g.select(".line")
+      .attr("d", function(d) { return line(d.values); });
+
+  y
+      .domain([0, d3.max(symbols.map(function(d) { return d.maxPrice; }))])
+      .range([h, 0]);
+
+  area
+      .y0(h)
+      .y1(function(d) { return y(d.price); });
+
+  line
+      .y(function(d) { return y(d.price); });
+
+  var t = g.transition()
+      .duration(duration);
+
+  t.select(".line")
+      .style("stroke-opacity", 1)
+      .attr("d", function(d) { return line(d.values); });
+
+  t.select(".area")
+      .style("fill-opacity", .5)
+      .attr("d", function(d) { return area(d.values); });
+
+  t.select("text")
+      .attr("dy", ".31em")
+      .attr("transform", function(d) { d = d.values[d.values.length - 1]; return "translate(" + (w) + "," + y(d.price) + ")"; });
+
+  svg.append("svg:line")
+      .attr("class", "line")
+      .attr("x1", 0)
+      .attr("x2", w)
+      .attr("y1", h)
+      .attr("y2", h)
+      .style("stroke-opacity", 1e-6)
+    .transition()
+      .duration(duration)
+      .style("stroke-opacity", 1);
+
+  setTimeout(groupedBar, duration + delay);
+}
+
+function groupedBar() {
+  x = d3.scale.ordinal()
+      .domain(symbols[0].values.map(function(d) { return d.date; }))
+      .rangeBands([0, w], .1);
+
+  var x1 = d3.scale.ordinal()
+      .domain(symbols.map(function(d) { return d.key; }))
+      .rangeBands([0, x.rangeBand()]);
+
+  var g = svg.selectAll(".symbol");
+
+  var t = g.transition()
+      .duration(duration);
+
+  t.select(".line")
+      .style("stroke-opacity", 1e-6)
+      .remove();
+
+  t.select(".area")
+      .style("fill-opacity", 1e-6)
+      .remove();
+
+  g.each(function(p, j) {
+    d3.select(this).selectAll("rect")
+        .data(function(d) { return d.values; })
+      .enter().append("svg:rect")
+        .attr("x", function(d) { return x(d.date) + x1(p.key); })
+        .attr("y", function(d) { return y(d.price); })
+        .attr("width", x1.rangeBand())
+        .attr("height", function(d) { return h - y(d.price); })
+        .style("fill", color(p.key))
+        .style("fill-opacity", 1e-6)
+      .transition()
+        .duration(duration)
+        .style("fill-opacity", 1);
+  });
+
+  setTimeout(stackedBar, duration + delay);
+}
+
+function stackedBar() {
+  x.rangeRoundBands([0, w], .1);
+
+  var stack = d3.layout.stack()
+      .values(function(d) { return d.values; })
+      .x(function(d) { return d.date; })
+      .y(function(d) { return d.price; })
+      .out(function(d, y0, y) { d.price0 = y0; })
+      .order("reverse");
+
+  var g = svg.selectAll(".symbol");
+
+  stack(symbols);
+
+  y
+      .domain([0, d3.max(symbols[0].values.map(function(d) { return d.price + d.price0; }))])
+      .range([h, 0]);
+
+  var t = g.transition()
+      .duration(duration / 2);
+
+  t.select("text")
+      .delay(symbols[0].values.length * rate)
+      .attr("transform", function(d) { d = d.values[d.values.length - 1]; return "translate(" + (w) + "," + y(d.price / 2 + d.price0) + ")"; });
+
+  t.selectAll("rect")
+      .delay(function(d, i) { return i * rate; })
+      .attr("y", function(d) { return y(d.price0 + d.price); })
+      .attr("height", function(d) { return h - y(d.price); })
+      .each("end", function() {
+        d3.select(this)
+            .style("stroke", "#fff")
+            .style("stroke-opacity", 1e-6)
+          .transition()
+            .duration(duration / 2)
+            .attr("x", function(d) { return x(d.date); })
+            .attr("width", x.rangeBand())
+            .style("stroke-opacity", 1);
+      });
+
+  setTimeout(transposeBar, duration + symbols[0].values.length * rate + delay);
+}
+
+function transposeBar() {
+  x
+      .domain(symbols.map(function(d) { return d.key; }))
+      .rangeRoundBands([0, w], .2);
+
+  y
+      .domain([0, d3.max(symbols.map(function(d) { return d3.sum(d.values.map(function(d) { return d.price; })); }))]);
+
+  var stack = d3.layout.stack()
+      .x(function(d, i) { return i; })
+      .y(function(d) { return d.price; })
+      .out(function(d, y0, y) { d.price0 = y0; });
+
+  stack(d3.zip.apply(null, symbols.map(function(d) { return d.values; }))); // transpose!
+
+  var g = svg.selectAll(".symbol");
+
+  var t = g.transition()
+      .duration(duration / 2);
+
+  t.selectAll("rect")
+      .delay(function(d, i) { return i * rate; })
+      .attr("y", function(d) { return y(d.price0 + d.price) - 1; })
+      .attr("height", function(d) { return h - y(d.price) + 1; })
+      .attr("x", function(d) { return x(d.symbol); })
+      .attr("width", x.rangeBand())
+      .style("stroke-opacity", 1e-6);
+
+  t.select("text")
+      .attr("x", 0)
+      .attr("transform", function(d) { return "translate(" + (x(d.key) + x.rangeBand() / 2) + "," + h + ")"; })
+      .attr("dy", "1.31em")
+      .each("end", function() { d3.select(this).attr("x", null).attr("text-anchor", "middle"); });
+
+  svg.select("line").transition()
+      .duration(duration)
+      .attr("x2", w);
+
+  setTimeout(donut,  duration / 2 + symbols[0].values.length * rate + delay);
+}
+
+function donut() {
+  var g = svg.selectAll(".symbol");
+
+  g.selectAll("rect").remove();
+
+  var pie = d3.layout.pie()
+      .sort(null)
+      .value(function(d) { return d.sumPrice; });
+
+  var arc = d3.svg.arc();
+
+  g.append("svg:path")
+      .style("fill", function(d) { return color(d.key); })
+      .data(function() { return pie(symbols); })
+    .transition()
+      .duration(duration)
+      .tween("arc", arcTween);
+
+  g.select("text").transition()
+      .duration(duration)
+      .attr("dy", ".31em");
+
+  svg.select("line").transition()
+      .duration(duration)
+      .attr("y1", 2 * h)
+      .attr("y2", 2 * h)
+      .remove();
+
+  function arcTween(d) {
+    var path = d3.select(this),
+        text = d3.select(this.parentNode.appendChild(this.previousSibling)),
+        x0 = x(d.data.key),
+        y0 = h - y(d.data.sumPrice);
+
+    return function(t) {
+      var r = h / 2 / Math.min(1, t + 1e-3),
+          a = Math.cos(t * Math.PI / 2),
+          xx = (-r + (a) * (x0 + x.rangeBand()) + (1 - a) * (w + h) / 2),
+          yy = ((a) * h + (1 - a) * h / 2),
+          f = {
+            innerRadius: r - x.rangeBand() / (2 - a),
+            outerRadius: r,
+            startAngle: a * (Math.PI / 2 - y0 / r) + (1 - a) * d.startAngle,
+            endAngle: a * (Math.PI / 2) + (1 - a) * d.endAngle
+          };
+
+      path.attr("transform", "translate(" + xx + "," + yy + ")");
+      path.attr("d", arc(f));
+      text.attr("transform", "translate(" + arc.centroid(f) + ")translate(" + xx + "," + yy + ")rotate(" + ((f.startAngle + f.endAngle) / 2 + 3 * Math.PI / 2) * 180 / Math.PI + ")");
+    };
+  }
+
+  setTimeout(donutExplode, duration + delay);
+}
+
+function donutExplode() {
+  var r0a = h / 2 - x.rangeBand() / 2,
+      r1a = h / 2,
+      r0b = 2 * h - x.rangeBand() / 2,
+      r1b = 2 * h,
+      arc = d3.svg.arc();
+
+  svg.selectAll(".symbol path")
+      .each(transitionExplode);
+
+  function transitionExplode(d, i) {
+    d.innerRadius = r0a;
+    d.outerRadius = r1a;
+    d3.select(this).transition()
+        .duration(duration / 2)
+        .tween("arc", tweenArc({
+          innerRadius: r0b,
+          outerRadius: r1b
+        }));
+  }
+
+  function tweenArc(b) {
+    return function(a) {
+      var path = d3.select(this),
+          text = d3.select(this.nextSibling),
+          i = d3.interpolate(a, b);
+      for (var key in b) a[key] = b[key]; // update data
+      return function(t) {
+        var a = i(t);
+        path.attr("d", arc(a));
+        text.attr("transform", "translate(" + arc.centroid(a) + ")translate(" + w / 2 + "," + h / 2 +")rotate(" + ((a.startAngle + a.endAngle) / 2 + 3 * Math.PI / 2) * 180 / Math.PI + ")");
+      };
+    }
+  }
+
+  setTimeout(stop, duration);
+}
+
+    </script><svg width="1280" height="800"><g transform="translate(160,80)"><g class="symbol"><text x="12" dy="0.31em" transform="translate(960,0)rotate(0)skewX(0)scale(1,1)">AAPL</text><rect x="0.7798537774167345" y="494.8650345260515" width="1.7546709991876523" height="65.13496547394851" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="8.578391551584078" y="488.03515379786563" width="1.7546709991876523" height="71.96484620213437" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="16.376929325751423" y="474.75204017576897" width="1.7546709991876523" height="85.24795982423103" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="24.175467099918766" y="482.1343377275581" width="1.7546709991876523" height="77.86566227244191" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="31.97400487408611" y="507.2693032015066" width="1.7546709991876523" height="52.7306967984934" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="39.772542648253456" y="494.2372881355932" width="1.7546709991876523" height="65.76271186440681" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="47.5710804224208" y="496.195856873823" width="1.7546709991876523" height="63.804143126176996" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="55.36961819658814" y="483.4902699309479" width="1.7546709991876523" height="76.50973006905213" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="63.168155970755485" y="527.6585059635908" width="1.7546709991876523" height="32.341494036409244" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="70.96669374492284" y="535.442561205273" width="1.7546709991876523" height="24.557438794726977" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="78.76523151909018" y="539.2843691148776" width="1.7546709991876523" height="20.715630885122437" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="86.56376929325752" y="541.3182674199624" width="1.7546709991876523" height="18.681732580037647" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="94.36230706742487" y="532.8562460765851" width="1.7546709991876523" height="27.14375392341492" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="102.16084484159221" y="537.0998116760828" width="1.7546709991876523" height="22.900188323917178" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="109.95938261575955" y="532.3038292529818" width="1.7546709991876523" height="27.696170747018186" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="117.7579203899269" y="528.0100439422473" width="1.7546709991876523" height="31.989956057752693" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="125.55645816409424" y="534.9403640929065" width="1.7546709991876523" height="25.05963590709348" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="133.3549959382616" y="530.8223477715003" width="1.7546709991876523" height="29.17765222849971" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="141.15353371242895" y="536.3967357187696" width="1.7546709991876523" height="23.603264281230395" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="148.95207148659628" y="536.723163841808" width="1.7546709991876523" height="23.276836158192054" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="156.75060926076364" y="540.5147520401757" width="1.7546709991876523" height="19.485247959824278" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="164.54914703493097" y="537.9535467671061" width="1.7546709991876523" height="22.046453232893896" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="172.34768480909833" y="533.2580037664784" width="1.7546709991876523" height="26.741996233521604" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="180.14622258326565" y="532.5047080979284" width="1.7546709991876523" height="27.495291902071585" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="187.944760357433" y="528.9642184557439" width="1.7546709991876523" height="31.03578154425611" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="195.74329813160034" y="532.7558066541118" width="1.7546709991876523" height="27.24419334588822" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="203.5418359057677" y="530.269930947897" width="1.7546709991876523" height="29.730069052102976" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="211.34037367993503" y="529.5166352793472" width="1.7546709991876523" height="30.483364720652844" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="219.13891145410238" y="530.7470182046453" width="1.7546709991876523" height="29.252981795354685" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="226.9374492282697" y="537.7526679221595" width="1.7546709991876523" height="22.247332077840497" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="234.73598700243707" y="540.8411801632141" width="1.7546709991876523" height="19.158819836785938" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="242.5345247766044" y="541.4689265536723" width="1.7546709991876523" height="18.531073446327696" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="250.33306255077176" y="541.7953546767106" width="1.7546709991876523" height="18.204645323289355" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="258.1316003249391" y="539.8367859384808" width="1.7546709991876523" height="20.16321406151917" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="265.93013809910644" y="540.539861895794" width="1.7546709991876523" height="19.460138104205953" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="273.7286758732738" y="542.0213433772756" width="1.7546709991876523" height="17.97865662272443" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="281.52721364744116" y="541.9711236660389" width="1.7546709991876523" height="18.02887633396108" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="289.32575142160846" y="541.1424984306341" width="1.7546709991876523" height="18.857501569365922" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="297.1242891957758" y="542.2473320778406" width="1.7546709991876523" height="17.75266792215939" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="304.9228269699432" y="542.1468926553672" width="1.7546709991876523" height="17.853107344632804" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="312.72136474411053" y="537.4513496547395" width="1.7546709991876523" height="22.548650345260512" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="320.51990251827783" y="536.0703075957314" width="1.7546709991876523" height="23.92969240426862" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="328.3184402924452" y="533.53421217828" width="1.7546709991876523" height="26.465787821720028" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="336.11697806661255" y="531.6007532956686" width="1.7546709991876523" height="28.399246704331404" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="343.9155158407799" y="533.9861895794099" width="1.7546709991876523" height="26.01381042059006" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="351.7140536149472" y="531.2743251726303" width="1.7546709991876523" height="28.725674827369744" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="359.51259138911456" y="533.7602008788449" width="1.7546709991876523" height="26.2397991211551" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="367.3111291632819" y="533.157564344005" width="1.7546709991876523" height="26.84243565599502" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="375.1096669374493" y="531.6760828625236" width="1.7546709991876523" height="28.32391713747643" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="382.90820471161663" y="529.9686126804771" width="1.7546709991876523" height="30.031387319522878" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="390.70674248578393" y="526.0514752040176" width="1.7546709991876523" height="33.948524795982394" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="398.5052802599513" y="527.6333961079724" width="1.7546709991876523" height="32.36660389202757" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="406.30381803411865" y="524.7708725674827" width="1.7546709991876523" height="35.229127432517316" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="414.102355808286" y="519.1462649089767" width="1.7546709991876523" height="40.85373509102328" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="421.9008935824533" y="519.3973634651601" width="1.7546709991876523" height="40.60263653483992" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="429.69943135662066" y="516.6854990583804" width="1.7546709991876523" height="43.3145009416196" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="437.497969130788" y="511.33709981167607" width="1.7546709991876523" height="48.66290018832393" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="445.2965069049554" y="494.21217827997486" width="1.7546709991876523" height="65.78782172002514" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="453.0950446791227" y="475.80665411173885" width="1.7546709991876523" height="84.19334588826115" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="460.89358245329004" y="479.1462649089768" width="1.7546709991876523" height="80.85373509102322" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="468.6921202274574" y="463.4526051475204" width="1.7546709991876523" height="96.54739485247961" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="476.49065800162475" y="447.35718769617074" width="1.7546709991876523" height="112.64281230382926" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="484.28919577579205" y="455.36723163841805" width="1.7546709991876523" height="104.63276836158195" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="492.0877335499594" y="469.4538606403013" width="1.7546709991876523" height="90.54613935969871" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="499.88627132412677" y="460.16321406151917" width="1.7546709991876523" height="99.83678593848083" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="507.6848090982941" y="467.57062146892656" width="1.7546709991876523" height="92.42937853107344" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="515.4833468724614" y="452.90646578782173" width="1.7546709991876523" height="107.09353421217827" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="523.2818846466288" y="442.2598870056497" width="1.7546709991876523" height="117.74011299435028" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="531.0804224207961" y="425.3860640301318" width="1.7546709991876523" height="134.61393596986818" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="538.8789601949635" y="415.3923414940364" width="1.7546709991876523" height="144.60765850596363" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="546.6774979691309" y="389.70495919648465" width="1.7546709991876523" height="170.29504080351535" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="554.4760357432982" y="379.4852479598243" width="1.7546709991876523" height="180.51475204017572" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="562.2745735174656" y="370.39548022598865" width="1.7546709991876523" height="189.60451977401135" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="570.0731112916328" y="388.0225988700565" width="1.7546709991876523" height="171.97740112994347" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="577.8716490658002" y="402.510985561833" width="1.7546709991876523" height="157.48901443816698" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="585.6701868399675" y="383.25172630257373" width="1.7546709991876523" height="176.74827369742627" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="593.4687246141349" y="409.9183929692404" width="1.7546709991876523" height="150.08160703075959" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="601.2672623883022" y="416.195856873823" width="1.7546709991876523" height="143.804143126177" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="609.0658001624696" y="389.353421217828" width="1.7546709991876523" height="170.646578782172" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="616.864337936637" y="389.6296296296297" width="1.7546709991876523" height="170.37037037037032" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="624.6628757108043" y="366.7043314500942" width="1.7546709991876523" height="193.29566854990583" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="632.4614134849717" y="356.4092906465788" width="1.7546709991876523" height="203.59070935342118" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="640.2599512591389" y="329.8430634023855" width="1.7546709991876523" height="230.1569365976145" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="648.0584890333063" y="346.96798493408664" width="1.7546709991876523" height="213.03201506591336" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="655.8570268074736" y="344.73320778405525" width="1.7546709991876523" height="215.26679221594475" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="663.655564581641" y="347.54551161330824" width="1.7546709991876523" height="212.45448838669176" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="671.4541023558083" y="326.7043314500942" width="1.7546709991876523" height="233.29566854990583" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="679.2526401299757" y="309.40364092906464" width="1.7546709991876523" height="250.59635907093536" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="687.0511779041431" y="255.6936597614564" width="1.7546709991876523" height="304.3063402385436" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="694.8497156783104" y="253.5593220338983" width="1.7546709991876523" height="306.4406779661017" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="702.6482534524777" y="229.15254237288138" width="1.7546709991876523" height="330.8474576271186" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="710.446791226645" y="212.2787193973635" width="1.7546709991876523" height="347.7212806026365" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="718.2453290008124" y="174.6390458254865" width="1.7546709991876523" height="385.3609541745135" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="726.0438667749797" y="83.03829252981802" width="1.7546709991876523" height="476.961707470182" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="733.8424045491471" y="102.44821092278721" width="1.7546709991876523" height="457.5517890772128" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="741.6409423233144" y="62.62397991211549" width="1.7546709991876523" height="497.3760200878845" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="749.4394800974818" y="220.11299435028246" width="1.7546709991876523" height="339.88700564971754" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="757.2380178716492" y="246.07658505963593" width="1.7546709991876523" height="313.92341494036407" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="765.0365556458165" y="199.67357187696172" width="1.7546709991876523" height="360.3264281230383" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="772.8350934199838" y="123.2140615191463" width="1.7546709991876523" height="436.7859384808537" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="780.6336311941511" y="86.0514752040176" width="1.7546709991876523" height="473.9485247959824" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="788.4321689683185" y="139.56057752667925" width="1.7546709991876523" height="420.43942247332075" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="796.2307067424858" y="160.8788449466416" width="1.7546709991876523" height="399.1211550533584" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="804.0292445166532" y="134.31261770244816" width="1.7546709991876523" height="425.68738229755184" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="811.8277822908206" y="274.601381042059" width="1.7546709991876523" height="285.398618957941" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="819.6263200649879" y="289.84306340238544" width="1.7546709991876523" height="270.15693659761456" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="827.4248578391553" y="327.3069679849341" width="1.7546709991876523" height="232.6930320150659" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="835.2233956133225" y="345.6873822975518" width="1.7546709991876523" height="214.31261770244822" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="843.0219333874899" y="333.6848713119899" width="1.7546709991876523" height="226.31512868801008" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="850.8204711616572" y="335.74387947269304" width="1.7546709991876523" height="224.25612052730696" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="858.6190089358246" y="296.045197740113" width="1.7546709991876523" height="263.954802259887" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="866.4175467099919" y="244.04268675455114" width="1.7546709991876523" height="315.95731324544886" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="874.2160844841593" y="218.9830508474576" width="1.7546709991876523" height="341.0169491525424" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="882.0146222583267" y="202.36032642812302" width="1.7546709991876523" height="357.639673571877" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="889.813160032494" y="149.73006905210298" width="1.7546709991876523" height="410.269930947897" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="897.6116978066614" y="137.62711864406782" width="1.7546709991876523" height="422.3728813559322" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="905.4102355808286" y="94.58882611424985" width="1.7546709991876523" height="465.41117388575015" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="913.208773354996" y="86.67922159447585" width="1.7546709991876523" height="473.32077840552415" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="921.0073111291633" y="58.02887633396108" width="1.7546709991876523" height="501.9711236660389" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="928.8058489033307" y="30.860012554927835" width="1.7546709991876523" height="529.1399874450722" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="936.604386677498" y="77.74011299435028" width="1.7546709991876523" height="482.2598870056497" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="944.4029244516654" y="46.20213433772756" width="1.7546709991876523" height="513.7978656622724" style="fill: #1f77b4; fill-opacity: 1; "></rect><rect x="952.2014622258328" y="0" width="1.7546709991876523" height="560" style="fill: #1f77b4; fill-opacity: 1; "></rect></g><g class="symbol"><text x="12" dy="0.31em" transform="translate(960,236.5348358154297)rotate(0)skewX(0)scale(1,1)">AMZN</text><rect x="2.534524776604387" y="397.89077212806023" width="1.7546709991876523" height="162.10922787193977" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="10.33306255077173" y="387.06842435655994" width="1.7546709991876523" height="172.93157564344006" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="18.131600324939075" y="391.7639673571877" width="1.7546709991876523" height="168.2360326428123" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="25.93013809910642" y="421.41870684243565" width="1.7546709991876523" height="138.58129315756435" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="33.72867587327376" y="438.6942875078468" width="1.7546709991876523" height="121.30571249215319" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="41.52721364744111" y="468.82611424984304" width="1.7546709991876523" height="91.17388575015696" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="49.32575142160845" y="484.3691148775895" width="1.7546709991876523" height="75.63088512241052" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="57.124289195775795" y="455.7940991839297" width="1.7546709991876523" height="104.20590081607031" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="64.92282696994313" y="463.47771500313877" width="1.7546709991876523" height="96.52228499686123" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="72.72136474411049" y="468.04770872567485" width="1.7546709991876523" height="91.95229127432515" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="80.51990251827783" y="498.00376647834275" width="1.7546709991876523" height="61.996233521657246" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="88.31844029244517" y="520.9290646578783" width="1.7546709991876523" height="39.07093534212174" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="96.11697806661252" y="516.5348399246705" width="1.7546709991876523" height="43.46516007532955" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="103.91551584077986" y="534.4130571249216" width="1.7546709991876523" height="25.58694287507842" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="111.7140536149472" y="534.3126177024482" width="1.7546709991876523" height="25.687382297551835" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="119.51259138911455" y="520.376647834275" width="1.7546709991876523" height="39.62335216572501" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="127.31112916328189" y="518.091650973007" width="1.7546709991876523" height="41.90834902699305" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="135.10966693744925" y="524.4695543000628" width="1.7546709991876523" height="35.53044569993722" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="142.9082047116166" y="528.6377903327055" width="1.7546709991876523" height="31.36220966729445" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="150.70674248578393" y="537.5517890772128" width="1.7546709991876523" height="22.44821092278721" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="158.5052802599513" y="545.0094161958568" width="1.7546709991876523" height="14.99058380414317" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="166.30381803411862" y="542.4733207784055" width="1.7546709991876523" height="17.526679221594463" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="174.10235580828598" y="531.5756434400503" width="1.7546709991876523" height="28.42435655994973" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="181.9008935824533" y="532.8311362209668" width="1.7546709991876523" height="27.168863779033245" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="189.69943135662066" y="524.3691148775895" width="1.7546709991876523" height="35.63088512241052" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="197.497969130788" y="524.5951035781544" width="1.7546709991876523" height="35.40489642184559" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="205.29650690495535" y="524.0929064657878" width="1.7546709991876523" height="35.90709353421221" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="213.09504467912268" y="518.091650973007" width="1.7546709991876523" height="41.90834902699305" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="220.89358245329004" y="514.2247332077841" width="1.7546709991876523" height="45.775266792215916" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="228.69212022745737" y="519.1964846202135" width="1.7546709991876523" height="40.80351537978652" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="236.49065800162472" y="523.7162586315129" width="1.7546709991876523" height="36.283741368487085" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="244.28919577579205" y="522.4858757062146" width="1.7546709991876523" height="37.51412429378536" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="252.0877335499594" y="520" width="1.7546709991876523" height="40" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="259.8862713241267" y="511.3873195229128" width="1.7546709991876523" height="48.612680477087224" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="267.68480909829407" y="501.368487131199" width="1.7546709991876523" height="58.631512868800996" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="275.4833468724614" y="512.5674827369743" width="1.7546709991876523" height="47.432517263025716" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="283.2818846466288" y="505.1349654739485" width="1.7546709991876523" height="54.86503452605149" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="291.0804224207961" y="504.73320778405525" width="1.7546709991876523" height="55.26679221594475" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="298.87896019496344" y="494.6390458254865" width="1.7546709991876523" height="65.3609541745135" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="306.6774979691308" y="487.95982423101066" width="1.7546709991876523" height="72.04017576898934" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="314.47603574329816" y="469.8807281858129" width="1.7546709991876523" height="90.11927181418707" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="322.27457351746546" y="468.8010043942247" width="1.7546709991876523" height="91.19899560577528" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="330.0731112916328" y="455.4425612052731" width="1.7546709991876523" height="104.55743879472692" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="337.87164906580017" y="443.69114877589453" width="1.7546709991876523" height="116.30885122410547" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="345.6701868399675" y="438.39296924042685" width="1.7546709991876523" height="121.60703075957315" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="353.4687246141348" y="423.32705586942876" width="1.7546709991876523" height="136.67294413057124" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="361.2672623883022" y="424.48210922787194" width="1.7546709991876523" height="135.51789077212806" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="369.06580016246954" y="427.8719397363465" width="1.7546709991876523" height="132.12806026365348" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="376.8643379366369" y="433.44632768361583" width="1.7546709991876523" height="126.55367231638417" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="384.66287571080426" y="452.00251098556186" width="1.7546709991876523" height="107.99748901443814" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="392.46141348497156" y="451.3245448838669" width="1.7546709991876523" height="108.6754551161331" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="400.2599512591389" y="450.52102950408033" width="1.7546709991876523" height="109.47897049591967" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="408.0584890333063" y="438.2172002510986" width="1.7546709991876523" height="121.78279974890143" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="415.85702680747363" y="423.40238543628374" width="1.7546709991876523" height="136.59761456371626" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="423.65556458164093" y="462.2724419334589" width="1.7546709991876523" height="97.72755806654112" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="431.4541023558083" y="464.23101067168864" width="1.7546709991876523" height="95.76898932831136" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="439.25264012997565" y="457.40112994350284" width="1.7546709991876523" height="102.59887005649716" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="447.051177904143" y="474.30006277463906" width="1.7546709991876523" height="85.69993722536094" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="454.8497156783103" y="460.36409290646577" width="1.7546709991876523" height="99.63590709353423" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="462.64825345247766" y="448.78844946641556" width="1.7546709991876523" height="111.21155053358444" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="470.446791226645" y="451.4752040175769" width="1.7546709991876523" height="108.52479598242309" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="478.2453290008124" y="471.66352793471435" width="1.7546709991876523" height="88.33647206528565" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="486.0438667749797" y="473.9485247959824" width="1.7546709991876523" height="86.0514752040176" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="493.84240454914703" y="478.7445072190835" width="1.7546709991876523" height="81.25549278091648" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="501.6409423233144" y="470.8349026993095" width="1.7546709991876523" height="89.16509730069049" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="509.43948009748175" y="476.9114877589454" width="1.7546709991876523" height="83.08851224105462" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="517.238017871649" y="446.6290018832392" width="1.7546709991876523" height="113.3709981167608" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="525.0365556458164" y="452.7809165097301" width="1.7546709991876523" height="107.2190834902699" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="532.8350934199838" y="446.2523540489642" width="1.7546709991876523" height="113.74764595103579" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="540.6336311941511" y="459.91211550533586" width="1.7546709991876523" height="100.08788449466414" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="548.4321689683185" y="438.3176396735719" width="1.7546709991876523" height="121.68236032642812" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="556.2307067424858" y="441.60703075957315" width="1.7546709991876523" height="118.39296924042685" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="564.0292445166532" y="447.45762711864404" width="1.7546709991876523" height="112.54237288135596" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="571.8277822908204" y="465.98870056497174" width="1.7546709991876523" height="94.01129943502826" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="579.6263200649878" y="468.2736974262398" width="1.7546709991876523" height="91.72630257376022" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="587.4248578391552" y="471.5881983678594" width="1.7546709991876523" height="88.41180163214062" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="595.2233956133225" y="473.0947897049592" width="1.7546709991876523" height="86.90521029504077" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="603.0219333874899" y="462.8750784682988" width="1.7546709991876523" height="97.1249215317012" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="610.8204711616572" y="492.4795982423101" width="1.7546709991876523" height="67.52040175768991" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="618.6190089358246" y="482.586315128688" width="1.7546709991876523" height="77.413684871312" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="626.4175467099919" y="479.34714375392343" width="1.7546709991876523" height="80.65285624607657" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="634.2160844841593" y="464.35655994978026" width="1.7546709991876523" height="95.64344005021974" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="642.0146222583265" y="458.706842435656" width="1.7546709991876523" height="101.29315756434403" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="649.8131600324939" y="460.91650973006904" width="1.7546709991876523" height="99.08349026993096" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="657.6116978066613" y="465.41117388575015" width="1.7546709991876523" height="94.58882611424985" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="665.4102355808286" y="461.7200251098556" width="1.7546709991876523" height="98.27997489014439" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="673.208773354996" y="460.08788449466414" width="1.7546709991876523" height="99.91211550533586" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="681.0073111291633" y="406.00125549278096" width="1.7546709991876523" height="153.99874450721904" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="688.8058489033307" y="386.39045825486505" width="1.7546709991876523" height="173.60954174513495" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="696.604386677498" y="388.2234777150031" width="1.7546709991876523" height="171.77652228499687" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="704.4029244516653" y="362.78719397363466" width="1.7546709991876523" height="197.21280602636534" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="712.2014622258326" y="359.34714375392343" width="1.7546709991876523" height="200.65285624607657" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="720" y="326.10169491525426" width="1.7546709991876523" height="233.89830508474574" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="727.7985377741674" y="336.1456371625863" width="1.7546709991876523" height="223.8543628374137" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="735.5970755483347" y="332.6051475204017" width="1.7546709991876523" height="227.39485247959828" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="743.3956133225021" y="327.38229755178907" width="1.7546709991876523" height="232.61770244821093" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="751.1941510966694" y="364.89642184557437" width="1.7546709991876523" height="195.10357815442563" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="758.9926888708368" y="398.1167608286252" width="1.7546709991876523" height="161.88323917137478" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="766.7912266450041" y="380.9667294413057" width="1.7546709991876523" height="179.0332705586943" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="774.5897644191714" y="362.56120527306973" width="1.7546709991876523" height="197.43879472693027" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="782.3883021933387" y="355.0533584431889" width="1.7546709991876523" height="204.94664155681107" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="790.1868399675061" y="375.86942875078466" width="1.7546709991876523" height="184.13057124921534" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="797.9853777416735" y="368.3113622096673" width="1.7546709991876523" height="191.68863779033268" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="805.7839155158408" y="357.0872567482737" width="1.7546709991876523" height="202.91274325172628" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="813.5824532900082" y="377.3006905210295" width="1.7546709991876523" height="182.69930947897052" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="821.3809910641755" y="416.271186440678" width="1.7546709991876523" height="143.72881355932202" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="829.1795288383429" y="452.7809165097301" width="1.7546709991876523" height="107.2190834902699" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="836.9780666125101" y="431.23666038920277" width="1.7546709991876523" height="128.76333961079723" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="844.7766043866775" y="412.3038292529818" width="1.7546709991876523" height="147.6961707470182" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="852.5751421608448" y="397.31324544883864" width="1.7546709991876523" height="162.68675455116136" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="860.3736799350122" y="375.5932203389831" width="1.7546709991876523" height="184.4067796610169" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="868.1722177091796" y="357.81544256120526" width="1.7546709991876523" height="202.18455743879474" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="875.9707554833469" y="364.1682360326428" width="1.7546709991876523" height="195.83176396735718" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="883.7692932575143" y="349.9309478970496" width="1.7546709991876523" height="210.06905210295042" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="891.5678310316816" y="344.6578782172003" width="1.7546709991876523" height="215.34212178279972" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="899.366368805849" y="356.13308223477713" width="1.7546709991876523" height="203.86691776522287" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="907.1649065800162" y="325.5743879472693" width="1.7546709991876523" height="234.42561205273068" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="914.9634443541836" y="261.66980539861896" width="1.7546709991876523" height="298.33019460138104" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="922.761982128351" y="218.7319522912743" width="1.7546709991876523" height="341.2680477087257" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="930.5605199025183" y="222.22222222222217" width="1.7546709991876523" height="337.7777777777778" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="938.3590576766857" y="245.09730069052102" width="1.7546709991876523" height="314.902699309479" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="946.157595450853" y="262.6993094789705" width="1.7546709991876523" height="297.3006905210295" style="fill: #ff7f0e; fill-opacity: 1; "></rect><rect x="953.9561332250204" y="236.53483992467045" width="1.7546709991876523" height="323.46516007532955" style="fill: #ff7f0e; fill-opacity: 1; "></rect></g><g class="symbol"><text x="12" dy="0.31em" transform="translate(960,244.74575805664062)rotate(0)skewX(0)scale(1,1)">IBM</text><rect x="4.289195775792039" y="307.5957313245449" width="1.7546709991876523" height="252.4042686754551" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="12.087733549959383" y="328.7131198995606" width="1.7546709991876523" height="231.28688010043942" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="19.886271324126728" y="293.5593220338983" width="1.7546709991876523" height="266.4406779661017" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="27.68480909829407" y="309.0269930947897" width="1.7546709991876523" height="250.9730069052103" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="35.48334687246141" y="318.1669805398619" width="1.7546709991876523" height="241.83301946013808" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="43.28188464662876" y="313.0947897049592" width="1.7546709991876523" height="246.90521029504077" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="51.080422420796104" y="307.0433145009416" width="1.7546709991876523" height="252.95668549905838" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="58.87896019496345" y="262.14689265536725" width="1.7546709991876523" height="297.85310734463275" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="66.67749796913078" y="305.91337099811676" width="1.7546709991876523" height="254.08662900188324" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="74.47603574329814" y="337.7777777777778" width="1.7546709991876523" height="222.22222222222217" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="82.27457351746548" y="348.7758945386064" width="1.7546709991876523" height="211.2241054613936" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="90.07311129163283" y="367.984934086629" width="1.7546709991876523" height="192.01506591337102" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="97.87164906580017" y="306.99309478970497" width="1.7546709991876523" height="253.00690521029503" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="105.67018683996751" y="334.0615191462649" width="1.7546709991876523" height="225.9384808537351" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="113.46872461413486" y="342.47332077840554" width="1.7546709991876523" height="217.52667922159446" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="121.2672623883022" y="299.61079723791585" width="1.7546709991876523" height="260.38920276208415" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="129.06580016246954" y="306.842435655995" width="1.7546709991876523" height="253.15756434400498" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="136.8643379366369" y="303.0006277463905" width="1.7546709991876523" height="256.9993722536095" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="144.66287571080426" y="321.7827997489014" width="1.7546709991876523" height="238.21720025109857" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="152.4614134849716" y="333.38355304457" width="1.7546709991876523" height="226.61644695542998" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="160.25995125913894" y="352.04017576898934" width="1.7546709991876523" height="207.95982423101066" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="168.05848903330627" y="314.97802887633395" width="1.7546709991876523" height="245.02197112366605" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="175.85702680747363" y="297.60200878844944" width="1.7546709991876523" height="262.39799121155056" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="183.65556458164096" y="285.398618957941" width="1.7546709991876523" height="274.601381042059" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="191.45410235580832" y="315.07846829880725" width="1.7546709991876523" height="244.92153170119275" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="199.25264012997565" y="336.9742623979912" width="1.7546709991876523" height="223.0257376020088" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="207.051177904143" y="323.5907093534212" width="1.7546709991876523" height="236.40929064657882" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="214.84971567831033" y="369.61707470182046" width="1.7546709991876523" height="190.38292529817954" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="222.6482534524777" y="376.7733835530446" width="1.7546709991876523" height="183.2266164469554" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="230.44679122664502" y="396.0075329566855" width="1.7546709991876523" height="163.9924670433145" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="238.24532900081238" y="399.6484620213434" width="1.7546709991876523" height="160.3515379786566" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="246.0438667749797" y="387.94726930320155" width="1.7546709991876523" height="172.05273069679845" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="253.84240454914706" y="426.89265536723167" width="1.7546709991876523" height="133.10734463276833" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="261.6409423233144" y="379.8116760828625" width="1.7546709991876523" height="180.1883239171375" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="269.43948009748175" y="361.23038292529816" width="1.7546709991876523" height="198.76961707470184" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="277.2380178716491" y="382.7746390458255" width="1.7546709991876523" height="177.2253609541745" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="285.03655564581646" y="381.16760828625235" width="1.7546709991876523" height="178.83239171374765" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="292.83509341998376" y="381.39359698681733" width="1.7546709991876523" height="178.60640301318267" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="300.6336311941511" y="380.2887633396108" width="1.7546709991876523" height="179.7112366603892" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="308.4321689683185" y="365.473948524796" width="1.7546709991876523" height="194.52605147520399" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="316.23070674248584" y="357.91588198367856" width="1.7546709991876523" height="202.08411801632144" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="324.02924451665314" y="370.6214689265537" width="1.7546709991876523" height="189.3785310734463" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="331.8277822908205" y="373.4839924670433" width="1.7546709991876523" height="186.51600753295668" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="339.62632006498785" y="371.37476459510356" width="1.7546709991876523" height="188.62523540489644" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="347.4248578391552" y="356.8361581920904" width="1.7546709991876523" height="203.1638418079096" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="355.2233956133225" y="354.19962335216576" width="1.7546709991876523" height="205.80037664783424" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="363.02193338748987" y="351.3873195229128" width="1.7546709991876523" height="208.61268047708722" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="370.8204711616572" y="346.4406779661017" width="1.7546709991876523" height="213.5593220338983" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="378.6190089358246" y="331.34965473948523" width="1.7546709991876523" height="228.65034526051477" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="386.41754670999194" y="337.2755806654112" width="1.7546709991876523" height="222.7244193345888" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="394.21608448415924" y="348.04770872567485" width="1.7546709991876523" height="211.95229127432515" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="402.0146222583266" y="356.5097300690521" width="1.7546709991876523" height="203.49026993094787" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="409.81316003249395" y="355.12868801004396" width="1.7546709991876523" height="204.87131198995604" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="417.6116978066613" y="356.13308223477713" width="1.7546709991876523" height="203.86691776522287" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="425.4102355808286" y="358.6440677966102" width="1.7546709991876523" height="201.35593220338978" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="433.20877335499597" y="363.71625863151286" width="1.7546709991876523" height="196.28374136848714" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="441.0073111291633" y="361.3057124921532" width="1.7546709991876523" height="198.6942875078468" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="448.8058489033307" y="351.9899560577527" width="1.7546709991876523" height="208.0100439422473" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="456.604386677498" y="341.16760828625235" width="1.7546709991876523" height="218.83239171374765" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="464.40292445166534" y="331.098556183302" width="1.7546709991876523" height="228.90144381669802" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="472.2014622258327" y="343.07595731324545" width="1.7546709991876523" height="216.92404268675455" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="480.00000000000006" y="344.60765850596357" width="1.7546709991876523" height="215.39234149403643" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="487.79853777416736" y="347.4199623352166" width="1.7546709991876523" height="212.5800376647834" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="495.5970755483347" y="382.29755178907726" width="1.7546709991876523" height="177.70244821092274" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="503.3956133225021" y="383.77903327055867" width="1.7546709991876523" height="176.22096672944133" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="511.19415109666943" y="386.91776522285" width="1.7546709991876523" height="173.08223477715" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="518.9926888708367" y="365.32328939108595" width="1.7546709991876523" height="194.67671060891405" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="526.791226645004" y="371.50031387319524" width="1.7546709991876523" height="188.49968612680476" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="534.5897644191714" y="372.42937853107344" width="1.7546709991876523" height="187.57062146892656" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="542.3883021933387" y="368.53735091023225" width="1.7546709991876523" height="191.46264908976775" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="550.1868399675061" y="351.638418079096" width="1.7546709991876523" height="208.36158192090397" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="557.9853777416735" y="367.3320778405524" width="1.7546709991876523" height="192.66792215944758" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="565.7839155158408" y="369.4413057124922" width="1.7546709991876523" height="190.55869428750782" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="573.5824532900081" y="371.45009416195853" width="1.7546709991876523" height="188.54990583804147" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="581.3809910641754" y="366.2272441933459" width="1.7546709991876523" height="193.77275580665412" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="589.1795288383428" y="366.52856246076584" width="1.7546709991876523" height="193.47143753923416" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="596.9780666125101" y="371.5756434400502" width="1.7546709991876523" height="188.42435655994979" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="604.7766043866775" y="378.8323917137476" width="1.7546709991876523" height="181.1676082862524" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="612.5751421608448" y="377.4513496547395" width="1.7546709991876523" height="182.5486503452605" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="620.3736799350122" y="368.286252354049" width="1.7546709991876523" height="191.713747645951" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="628.1722177091796" y="366.0012554927809" width="1.7546709991876523" height="193.9987445072191" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="635.9707554833469" y="341.39359698681733" width="1.7546709991876523" height="218.60640301318267" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="643.7692932575142" y="341.66980539861896" width="1.7546709991876523" height="218.33019460138104" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="651.5678310316815" y="329.24042686754547" width="1.7546709991876523" height="230.75957313245453" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="659.3663688058489" y="324.4946641556811" width="1.7546709991876523" height="235.5053358443189" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="667.1649065800162" y="338.58129315756435" width="1.7546709991876523" height="221.41870684243565" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="674.9634443541836" y="335.41745134965475" width="1.7546709991876523" height="224.58254865034525" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="682.761982128351" y="316.4846202134338" width="1.7546709991876523" height="243.5153797865662" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="690.5605199025183" y="305.03452605147515" width="1.7546709991876523" height="254.96547394852485" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="698.3590576766857" y="308.2736974262398" width="1.7546709991876523" height="251.72630257376022" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="706.1575954508529" y="295.3421217827997" width="1.7546709991876523" height="264.6578782172003" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="713.9561332250203" y="279.924670433145" width="1.7546709991876523" height="280.075329566855" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="721.7546709991876" y="277.26302573760205" width="1.7546709991876523" height="282.73697426239795" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="729.553208773355" y="281.28060263653487" width="1.7546709991876523" height="278.71939736346513" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="737.3517465475223" y="306.6415568110483" width="1.7546709991876523" height="253.3584431889517" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="745.1502843216897" y="299.61079723791585" width="1.7546709991876523" height="260.38920276208415" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="752.948822095857" y="301.99623352165725" width="1.7546709991876523" height="258.00376647834275" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="760.7473598700244" y="284.6955430006277" width="1.7546709991876523" height="275.3044569993723" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="768.5458976441918" y="281.6070307595731" width="1.7546709991876523" height="278.3929692404269" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="776.344435418359" y="268.14814814814815" width="1.7546709991876523" height="291.85185185185185" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="784.1429731925264" y="245.77526679221597" width="1.7546709991876523" height="314.224733207784" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="791.9415109666937" y="272.241054613936" width="1.7546709991876523" height="287.758945386064" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="799.7400487408611" y="249.29064657878217" width="1.7546709991876523" height="310.7093534212178" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="807.5385865150284" y="263.30194601381044" width="1.7546709991876523" height="296.69805398618956" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="815.3371242891958" y="274.9278091650973" width="1.7546709991876523" height="285.0721908349027" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="823.1356620633632" y="333.40866290018835" width="1.7546709991876523" height="226.59133709981165" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="830.9341998375305" y="360" width="1.7546709991876523" height="200" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="838.7327376116978" y="353.72253609541747" width="1.7546709991876523" height="206.27746390458253" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="846.5312753858651" y="335.3672316384181" width="1.7546709991876523" height="224.6327683615819" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="854.3298131600325" y="333.20778405524175" width="1.7546709991876523" height="226.79221594475825" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="862.1283509341998" y="321.23038292529816" width="1.7546709991876523" height="238.76961707470184" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="869.9268887083672" y="305.66227244193345" width="1.7546709991876523" height="254.33772755806655" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="877.7254264825345" y="296.72316384180795" width="1.7546709991876523" height="263.27683615819205" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="885.5239642567019" y="301.3433772755807" width="1.7546709991876523" height="258.6566227244193" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="893.3225020308693" y="267.8719397363465" width="1.7546709991876523" height="292.1280602636535" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="901.1210398050366" y="266.2146892655367" width="1.7546709991876523" height="293.7853107344633" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="908.9195775792039" y="262.32266164469553" width="1.7546709991876523" height="297.67733835530447" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="916.7181153533712" y="259.83678593848083" width="1.7546709991876523" height="300.16321406151917" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="924.5166531275386" y="244.1431261770245" width="1.7546709991876523" height="315.8568738229755" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="932.3151909017059" y="232.76836158192089" width="1.7546709991876523" height="327.2316384180791" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="940.1137286758733" y="254.03640929064665" width="1.7546709991876523" height="305.96359070935335" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="947.9122664500406" y="240.70307595731327" width="1.7546709991876523" height="319.2969240426867" style="fill: #2ca02c; fill-opacity: 1; "></rect><rect x="955.710804224208" y="244.74576271186442" width="1.7546709991876523" height="315.2542372881356" style="fill: #2ca02c; fill-opacity: 1; "></rect></g><g class="symbol"><text x="12" dy="0.31em" transform="translate(960,487.6836242675781)rotate(0)skewX(0)scale(1,1)">MSFT</text><rect x="6.0438667749796915" y="460.0376647834275" width="1.7546709991876523" height="99.96233521657251" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="13.842404549147034" y="468.72567482736974" width="1.7546709991876523" height="91.27432517263026" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="21.64094232331438" y="451.4752040175769" width="1.7546709991876523" height="108.52479598242309" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="29.439480097481724" y="488.76333961079723" width="1.7546709991876523" height="71.23666038920277" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="37.23801787164906" y="496.09541745134965" width="1.7546709991876523" height="63.90458254865035" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="45.036555645816414" y="478.29252981795355" width="1.7546709991876523" height="81.70747018204645" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="52.83509341998376" y="488.68801004394226" width="1.7546709991876523" height="71.31198995605774" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="60.6336311941511" y="488.68801004394226" width="1.7546709991876523" height="71.31198995605774" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="68.43216896831844" y="498.405524168236" width="1.7546709991876523" height="61.59447583176399" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="76.2307067424858" y="489.6421845574388" width="1.7546709991876523" height="70.35781544256122" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="84.02924451665314" y="501.39359698681733" width="1.7546709991876523" height="58.60640301318267" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="91.82778229082048" y="515.6811048336472" width="1.7546709991876523" height="44.31889516635283" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="99.62632006498782" y="497.6271186440678" width="1.7546709991876523" height="62.37288135593218" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="107.42485783915517" y="499.73634651600753" width="1.7546709991876523" height="60.26365348399247" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="115.22339561332251" y="504.13057124921534" width="1.7546709991876523" height="55.869428750784664" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="123.02193338748985" y="490.79723791588196" width="1.7546709991876523" height="69.20276208411804" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="130.8204711616572" y="489.3408662900188" width="1.7546709991876523" height="70.65913370998118" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="138.61900893582455" y="485.4237288135593" width="1.7546709991876523" height="74.57627118644069" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="146.4175467099919" y="492.3791588198368" width="1.7546709991876523" height="67.62084118016321" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="154.21608448415924" y="501.7200251098556" width="1.7546709991876523" height="58.27997489014439" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="162.0146222583266" y="507.7212806026365" width="1.7546709991876523" height="52.27871939736349" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="169.81316003249393" y="500.6151914626491" width="1.7546709991876523" height="59.38480853735092" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="177.61169780666128" y="494.4130571249215" width="1.7546709991876523" height="65.58694287507848" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="185.4102355808286" y="492.32893910860014" width="1.7546709991876523" height="67.67106089139986" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="193.20877335499597" y="494.91525423728814" width="1.7546709991876523" height="65.08474576271186" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="201.0073111291633" y="500.4143126177024" width="1.7546709991876523" height="59.58568738229758" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="208.80584890333066" y="498.405524168236" width="1.7546709991876523" height="61.59447583176399" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="216.60438667749798" y="506.61644695543" width="1.7546709991876523" height="53.38355304457002" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="224.40292445166534" y="507.99748901443814" width="1.7546709991876523" height="52.002510985561855" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="232.20146222583267" y="504.13057124921534" width="1.7546709991876523" height="55.869428750784664" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="240.00000000000003" y="510.98556183301946" width="1.7546709991876523" height="49.01443816698054" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="247.79853777416736" y="509.8556183301946" width="1.7546709991876523" height="50.1443816698054" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="255.59707554833471" y="515.3295668549906" width="1.7546709991876523" height="44.67043314500938" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="263.395613322502" y="505.3860640301318" width="1.7546709991876523" height="54.61393596986818" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="271.1941510966694" y="501.09227871939737" width="1.7546709991876523" height="58.90772128060263" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="278.99268887083673" y="507.19397363465157" width="1.7546709991876523" height="52.80602636534843" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="286.7912266450041" y="511.5128688010044" width="1.7546709991876523" height="48.4871311989956" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="294.5897644191714" y="511.4375392341494" width="1.7546709991876523" height="48.562460765850574" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="302.38830219333875" y="510.38292529817954" width="1.7546709991876523" height="49.61707470182046" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="310.1868399675061" y="507.5957313245449" width="1.7546709991876523" height="52.404268675455114" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="317.98537774167346" y="509.55430006277464" width="1.7546709991876523" height="50.445699937225356" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="325.78391551584076" y="507.44507219083494" width="1.7546709991876523" height="52.554927809165065" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="333.5824532900081" y="505.8631512868801" width="1.7546709991876523" height="54.13684871311989" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="341.3809910641755" y="505.6371625863151" width="1.7546709991876523" height="54.36283741368487" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="349.17952883834283" y="503.0257376020088" width="1.7546709991876523" height="56.9742623979912" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="356.97806661251013" y="506.13935969868174" width="1.7546709991876523" height="53.860640301318256" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="364.7766043866775" y="507.0182046453233" width="1.7546709991876523" height="52.981795354676706" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="372.57514216084485" y="503.6032642812304" width="1.7546709991876523" height="56.396735718769605" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="380.3736799350122" y="503.0257376020088" width="1.7546709991876523" height="56.9742623979912" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="388.17221770917956" y="505.33584431889517" width="1.7546709991876523" height="54.66415568110483" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="395.97075548334686" y="508.62523540489644" width="1.7546709991876523" height="51.37476459510356" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="403.7692932575142" y="506.13935969868174" width="1.7546709991876523" height="53.860640301318256" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="411.5678310316816" y="505.9384808537351" width="1.7546709991876523" height="54.061519146264914" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="419.36636880584894" y="501.142498430634" width="1.7546709991876523" height="58.85750156936598" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="427.16490658001624" y="501.293157564344" width="1.7546709991876523" height="58.70684243565597" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="434.9634443541836" y="503.57815442561207" width="1.7546709991876523" height="56.42184557438793" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="442.76198212835095" y="502.84996861268047" width="1.7546709991876523" height="57.15003138731953" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="450.5605199025183" y="502.1971123666039" width="1.7546709991876523" height="57.8028876333961" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="458.3590576766856" y="498.22975517890774" width="1.7546709991876523" height="61.77024482109226" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="466.15759545085297" y="498.4306340238544" width="1.7546709991876523" height="61.569365976145605" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="473.9561332250203" y="499.4601381042059" width="1.7546709991876523" height="60.539861895794104" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="481.7546709991877" y="501.8706842435656" width="1.7546709991876523" height="58.12931575643438" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="489.553208773355" y="504.15568110483366" width="1.7546709991876523" height="55.84431889516634" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="497.35174654752234" y="501.5442561205273" width="1.7546709991876523" height="58.45574387947272" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="505.1502843216897" y="500.1883239171375" width="1.7546709991876523" height="59.811676082862505" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="512.948822095857" y="502.4231010671689" width="1.7546709991876523" height="57.576898932831114" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="520.7473598700244" y="500.6403013182674" width="1.7546709991876523" height="59.359698681732596" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="528.5458976441918" y="496.34651600753295" width="1.7546709991876523" height="63.653483992467045" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="536.3444354183591" y="500.16321406151917" width="1.7546709991876523" height="59.83678593848083" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="544.1429731925265" y="500.23854362837415" width="1.7546709991876523" height="59.761456371625854" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="551.9415109666938" y="495.4425612052731" width="1.7546709991876523" height="64.55743879472692" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="559.7400487408612" y="499.008160703076" width="1.7546709991876523" height="60.99183929692401" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="567.5385865150286" y="494.3628374136849" width="1.7546709991876523" height="65.63716258631513" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="575.3371242891958" y="497.1249215317012" width="1.7546709991876523" height="62.875078468298796" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="583.1356620633632" y="496.32140615191463" width="1.7546709991876523" height="63.67859384808537" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="590.9341998375305" y="503.5028248587571" width="1.7546709991876523" height="56.497175141242906" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="598.7327376116979" y="506.7922159447583" width="1.7546709991876523" height="53.20778405524169" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="606.5312753858652" y="505.2605147520402" width="1.7546709991876523" height="54.739485247959806" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="614.3298131600326" y="503.4777150031387" width="1.7546709991876523" height="56.52228499686129" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="622.1283509342" y="499.40991839296925" width="1.7546709991876523" height="60.590081607030754" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="629.9268887083673" y="495.51789077212806" width="1.7546709991876523" height="64.48210922787194" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="637.7254264825347" y="492.3038292529818" width="1.7546709991876523" height="67.69617074701819" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="645.5239642567019" y="490.5461393596987" width="1.7546709991876523" height="69.45386064030129" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="653.3225020308693" y="489.3659761456372" width="1.7546709991876523" height="70.6340238543628" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="661.1210398050366" y="487.00564971751413" width="1.7546709991876523" height="72.99435028248587" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="668.919577579204" y="493.1324544883867" width="1.7546709991876523" height="66.86754551161329" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="676.7181153533713" y="493.83553044569993" width="1.7546709991876523" height="66.16446955430007" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="684.5166531275387" y="488.93910860012556" width="1.7546709991876523" height="71.06089139987444" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="692.315190901706" y="486.9052102950408" width="1.7546709991876523" height="73.09478970495923" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="700.1137286758734" y="489.8179535467671" width="1.7546709991876523" height="70.18204645323289" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="707.9122664500406" y="490.947897049592" width="1.7546709991876523" height="69.05210295040803" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="715.710804224208" y="491.34965473948523" width="1.7546709991876523" height="68.65034526051477" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="723.5093419983754" y="489.59196484620213" width="1.7546709991876523" height="70.40803515379787" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="731.3078797725427" y="472.04017576898934" width="1.7546709991876523" height="87.95982423101066" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="739.1064175467101" y="479.4224733207784" width="1.7546709991876523" height="80.57752667922159" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="746.9049553208774" y="474.62649089767734" width="1.7546709991876523" height="85.37350910232266" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="754.7034930950448" y="481.83301946013813" width="1.7546709991876523" height="78.16698053986187" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="762.5020308692121" y="494.5386064030132" width="1.7546709991876523" height="65.4613935969868" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="770.3005686433795" y="491.6760828625236" width="1.7546709991876523" height="68.32391713747643" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="778.0991064175467" y="491.34965473948523" width="1.7546709991876523" height="68.65034526051477" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="785.8976441917141" y="491.5756434400502" width="1.7546709991876523" height="68.42435655994979" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="793.6961819658815" y="493.53421217828" width="1.7546709991876523" height="66.46578782172003" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="801.4947197400488" y="497.8531073446328" width="1.7546709991876523" height="62.146892655367196" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="809.2932575142162" y="493.8104205900816" width="1.7546709991876523" height="66.1895794099184" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="817.0917952883835" y="495.26679221594475" width="1.7546709991876523" height="64.73320778405525" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="824.8903330625509" y="505.8380414312618" width="1.7546709991876523" height="54.161958568738214" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="832.6888708367183" y="510.63402385436285" width="1.7546709991876523" height="49.36597614563715" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="840.4874086108855" y="512.5172630257376" width="1.7546709991876523" height="47.482736974262366" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="848.2859463850529" y="518.2423101067169" width="1.7546709991876523" height="41.7576898932831" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="856.0844841592202" y="520.3013182674199" width="1.7546709991876523" height="39.6986817325801" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="863.8830219333876" y="514.827369742624" width="1.7546709991876523" height="45.172630257376" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="871.6815597075549" y="510.1820464532329" width="1.7546709991876523" height="49.817953546767114" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="879.4800974817223" y="508.2988072818581" width="1.7546709991876523" height="51.7011927181419" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="887.2786352558896" y="501.19271814187067" width="1.7546709991876523" height="58.80728185812933" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="895.077173030057" y="501.7953546767106" width="1.7546709991876523" height="58.20464532328941" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="902.8757108042244" y="498.6566227244193" width="1.7546709991876523" height="61.34337727558068" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="910.6742485783916" y="495.99497802887635" width="1.7546709991876523" height="64.00502197112365" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="918.472786352559" y="490.9981167608286" width="1.7546709991876523" height="69.00188323917138" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="926.2713241267263" y="486.5034526051475" width="1.7546709991876523" height="73.49654739485248" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="934.0698619008937" y="483.8166980539862" width="1.7546709991876523" height="76.18330194601378" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="941.868399675061" y="489.5668549905838" width="1.7546709991876523" height="70.4331450094162" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="949.6669374492284" y="488.0100439422473" width="1.7546709991876523" height="71.98995605775269" style="fill: #d62728; fill-opacity: 1; "></rect><rect x="957.4654752233957" y="487.683615819209" width="1.7546709991876523" height="72.31638418079098" style="fill: #d62728; fill-opacity: 1; "></rect></g><line class="line" x1="0" x2="960" y1="560" y2="560" style="stroke-opacity: 1; "></line></g></svg>
+  
+
+<div id="wrchoverdiv"><div id="wrccontainer"><div id="wrcheader"><div id="wrctitle"> WebRep</div></div><div class="wrchorizontal"></div><div id="wrccurrentvote">Overall rating</div><div class="wrchorizontal"></div><div id="wrcrating"></div><div id="wrcratingtext">This site has no rating</div><div id="wrcweighttext">(not enough votes)</div><div id="wrcflags"><div id="wrcicon_shopping" class="wrcicon"></div><div id="wrcicon_social" class="wrcicon"></div><div id="wrcicon_news" class="wrcicon"></div><div id="wrcicon_it" class="wrcicon"></div><div id="wrcicon_corporate" class="wrcicon"></div><div id="wrcicon_pornography" class="wrcicon"></div><div id="wrcicon_violence" class="wrcicon"></div><div id="wrcicon_gambling" class="wrcicon"></div><div id="wrcicon_drugs" class="wrcicon"></div><div id="wrcicon_illegal" class="wrcicon"></div></div><div class="wrchorizontal"></div></div></div></body><span id="skype_highlighting_settings" display="none" autoextractnumbers="1"></span><object id="skype_plugin_object" location.href="http://mbostock.github.com/d3/talk/20111116/transitions.html" location.hostname="mbostock.github.com" style="position: absolute; visibility: hidden; left: -100px; top: -100px; " width="0" height="0" type="application/x-vnd.skype.click2call.chrome.5.7.0"></object></html>
