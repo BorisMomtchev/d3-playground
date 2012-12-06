@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<!-- Lovely HTML5 doctype -->
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lte IE 7 ]>    <html lang="en" class="no-js ie"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 ie"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9 ie"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="js flexbox canvas canvastext postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache wf-bellopro-n4-active wf-active" lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<meta name="google-site-verification" content="Q8qiPaq8Y8bYZ5JaC093hi__ulSN_Qu4k7MkvrFkiwg">
+		<title>On the tenth day of Xmas, get dirty with data using d3.js | 12 Devs of Xmas</title>
+
+		<!-- Main stylesheets & fonts etc -->
+		<!--[if ! lte IE 7]><!-->
+			<link href="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/css.css" rel="stylesheet" type="text/css">
+			<link rel="stylesheet" type="text/css" media="all" href="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/style.css">
+
+		<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.12devsofxmas.co.uk/rss/">
+
+<link rel="alternate" type="text/xml" title="RSS .92" href="http://www.12devsofxmas.co.uk/rss/">
+
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://www.12devsofxmas.co.uk/rss/">
+
+		<!--<![endif]-->
+
+		<!-- Standard IE6 Stylesheet courtesy of Andy Clarke -->
+		<!--[if lte IE 7]>
+			<link rel="stylesheet" href="http://www.12devsofxmas.co.uk/wordpress/wp-content/themes/12devs/ie6-stylesheet.css" media="screen, projection">
+		<![endif]-->
+
+		<script async="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/cbgapi.loaded_0"></script><script gapi_processed="true" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/plusone.js" async="" type="text/javascript"></script><script src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/widgets.js" id="twitter-wjs"></script><script src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/l10n.js"></script>
+<script type="text/javascript" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/jquery.js"></script>
+<link rel="prev" title="On the ninth day of Xmas, get Responsive!" href="http://www.12devsofxmas.co.uk/2012/01/get-responsive/">
+<link rel="next" title="On the eleventh day of Xmas, get musical by building a Spotify application" href="http://www.12devsofxmas.co.uk/2012/01/get-musical-by-building-a-spotify-application/">
+<link rel="canonical" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/">
+<link rel="shortlink" href="http://www.12devsofxmas.co.uk/?p=44">
+
+		<!-- Font -->
+		<script type="text/javascript" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/iol3xsg.js"></script>
+		<style type="text/css">.tk-bello-pro{font-family:bello-pro,sans-serif;}</style><link href="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/iol3xsg-d.css" rel="stylesheet"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+		
+		<script src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/modernizr-2.js"></script>
+		<script src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/core.js"></script>
+
+		<script type="text/javascript">
+		
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-15605273-4']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		
+		</script>
+	</head>
+
+	<body data-twttr-rendered="true" class="single single-post postid-44 single-format-standard cat-13-id cat-7-id">
+
+		<header id="site-header">
+			
+			<div class="container">
+			
+				<div id="logo" class="col col-four">
+					<img src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/main-title.png" alt="12 Devs of Xmas">
+				</div>
+				
+				<div class="intro col-four">
+					
+					<p><strong>12 interesting projects</strong> introducing you to new and exciting technologies and tools for the web. <strong>Inspiring</strong> you to try new things or help you to try something you’ve not yet found time to do. Welcome to the <strong>12 Devs of Xmas!</strong></p>
+				
+					<nav>
+						<ul id="menu-main-navigation" class="menu"><li id="menu-item-77" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-77"><a href="http://www.12devsofxmas.co.uk/">Home</a></li>
+<li id="menu-item-142" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-142"><a href="http://twitter.com/12devsofxmas">Twitter</a></li>
+</ul>					</nav>
+				
+				</div>				
+				
+			</div> <!-- /.container -->
+		</header>
+			
+		<div id="content">
+	
+			<div class="container">			
+			
+																			<article id="post-44" class="post-44 post type-post status-publish format-standard hentry category-data-visualisation category-javascript col col-six cat-13-id cat-7-id">
+				
+				<div class="on-the">
+					<p class="tk-bello-pro">Day</p>
+					<p class="number tk-bello-pro num-10"><span>10</span></p>
+				</div>
+
+				<div class="entry-content">
+
+					<header>
+						<h1 class="tk-bello-pro">On the tenth day of Xmas, get dirty with data using d3.js</h1>
+
+						<p>by Clinton Montague</p>
+						<p><a href="http://www.12devsofxmas.co.uk/category/data-visualisation/" title="View all posts in Data Visualisation" rel="category tag">Data Visualisation</a> <a href="http://www.12devsofxmas.co.uk/category/javascript/" title="View all posts in Javascript" rel="category tag">Javascript</a></p>
+						<p class="social-sharing"><div id="___plusone_0" style="height: 15px; width: 70px; display: inline-block; text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline;"><iframe title="+1" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/fastbutton.htm" name="I0_1351625826282" id="I0_1351625826282" vspace="0" tabindex="0" style="position: static; top: 0px; width: 70px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 15px;" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true" frameborder="0" scrolling="no" width="100%"></iframe></div></p>
+						<p class="twitter-share"><iframe data-twttr-rendered="true" title="Twitter Tweet Button" style="width: 109px; height: 20px;" class="twitter-share-button twitter-count-horizontal" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/tweet_button.htm" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
+					</header><!-- .entry-header -->
+					<p>I’d like to start off by asking what seems like quite a simple 
+question: What is the difference between data and information? And 
+taking it a step further, where does knowledge fit into this definition?
+ Not as easy to answer as you might expect, is it! Before we start 
+getting our hands dirty creating some awesome data visualisations, it’s 
+going to be useful to learn the definitions of – and difference between –
+ these three words.</p>
+<p><strong>Data</strong> is a set of unprocessed facts (the word comes from the latin <em>datum</em>
+ which means “that which is given”). These data are generally 
+meaningless until they have been processed. This could be a list of a 
+population’s height, eye colour, skin tone, handedness, etc. </p>
+<p><strong>Information</strong> is what you get after you’ve processed 
+the data. This is much more useful and easy to process than data for 
+humans. Continuing with the census theme, information includes the 
+average height of different countries, that 1 in 10 people are left 
+handed, and that Scandanavians tend to burn more easily in the sun. </p>
+<p><strong>Knowledge</strong> is perhaps the most difficult to define, 
+but the definition which I think makes most sense in this instance is 
+how we use our past experiences to decide what to do based on 
+information. If we know that we have a lighter skin tone, we go out and 
+buy a higher SPF sun block before summer holidays. </p>
+<p>If we think about the weather (considering I’m English, it’d be rude 
+not to mention it at least once), the data is the set of measurements 
+recorded by the Met Office (temperature, pressure, satellite images of 
+the clouds, etc), the information is the forecast which they produce 
+(this is, the processed facts), and the knowledge is what you choose to 
+do based on the information (i.e. wear shorts or take your umbrella out 
+with you). </p>
+<p>Now that you know what data, information and knowledge are, you 
+should be able to see that the purpose of data visualisation (or 
+data-vis as the cool kids call it) is to take data and turn it into a 
+more meaningful form – information. People can then use this information
+ along with their knowledge to make decisions or draw conclusions. I’m 
+sure that you see examples of this almost every day in the form of 
+infographics, but data-vis is not limited to static graphics—some of the
+ best visualisations I’ve seen are animated to show how trends change 
+over time. It turns out that sometimes it is useful to play around with 
+your data to find trends before even thinking about the design of your 
+infographics or charts. It can be used as a tool as well as an end 
+result. </p>
+<h2>So what are we going to build, and what with?</h2>
+<figure><a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-final.html"><img src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/Screen-Shot-2012-01-03-at-21.png" alt="" title="Data vis screenshot" class="respond"></a></figure>
+<p>I’ll show you how to build a relatively simple interactive chart 
+which will display various stats on roller coasters (those of you who 
+know me will be rolling their eyes right now). It will be like one of 
+those scatter graphs which you had to draw in maths at school with an X 
+and a Y axis, but instead of using an ‘x’ or a dot for each point, I’ll 
+use a circle which will change in size to allow for a third dimension. 
+And just to show off, I’ll also colour the circles differently to 
+indicate what kind of roller coaster it represents. A simple chart which
+ can display four pieces of data per point. Pretty nifty, huh?</p>
+<p>It’s important to have a good dataset in order to get any meaningful 
+information out of the visualisation, so if you’re serious about getting
+ into this and want to play more after reading this article, I’d advise 
+you to go out and either find an existing dataset or generate your own 
+based on something which interests you. Luckily for me, there’s a 
+website similar to IMDB but for roller coasters (<a href="http://www.rcdb.com/">rcdb.com</a>) which is where I <a href="https://twitter.com/#%21/iblamefish/status/145940564922204161">scraped</a> <a href="https://twitter.com/#%21/iblamefish/status/146320972029501440">my</a> <a href="https://twitter.com/#%21/iblamefish/status/148464361629945856">data</a> from. If you’d prefer to use my data, you can <a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-demo.zip">download a copy</a>.</p>
+<p>There are a number of tools out there to help you to create charts and visualisations. My favourites are <a href="http://raphaeljs.com/">Raphaël</a>, <a href="http://paperjs.org/">Paper.js</a>, and more recently, <a href="http://mbostock.github.com/d3/">d3.js</a>. Each has its benefits and drawbacks. Raphaël for example has great support for <strike>our best friend</strike>
+ IE, but it can be a little more involved in terms of writing the code. 
+d3 doesn’t work in anything less than IE9, but it has a very simple 
+chainable syntax and makes working with data incredibly easy. For that 
+reason, I’ll be using d3 for this project.</p>
+<h2>A brief introduction to d3</h2>
+<p>d3 was written to replace a visualisation toolkit called <a href="http://mbostock.github.com/protovis/">Protovis</a>
+ which was built with the aim of making visualisation super-simple. 
+Instead of having to write loads of complicated code, it allowed you to 
+write code which describes what you wanted your visualisation to look 
+like, and how you want it to move (a similar philosophy to <a href="http://processing.org/">processing</a>
+ which is popular with artists and visual coders). d3 shares this 
+philosohpy, so you can create some pretty cool stuff even if you’re not a
+ JavaScript ninja. Add in some JavaScript sorcery and the possibilities 
+are endless! </p>
+<p>There are four main parts to a d3 project:</p>
+<ol>
+<li>selection (like selecting DOM elements in jQuery)</li>
+<li>enter (what happens when new data points are added to the visualisation)</li>
+<li>transition (how the data points animate between their old and new states)</li>
+<li>exit (what happens when data points are removed from the visualisation)</li>
+</ol>
+<p>For each of these steps, you can change the appearance of the ‘node’ 
+(data point), introduce delays and transitions, update other nodes, and 
+more. It might be easier to understand with a simple example.</p>
+<p>Let’s build an animation with circles to represent a dataset which 
+will change every two seconds. Each dataset will contain three values, 
+one to manipulate the x coordinate, one for the y coordinate and a third
+ for the radius. A ‘key’ in each dataset will keep track of which circle
+ is which and allow them to animate between the states. Before diving 
+into any code, let’s describe in words what we want to happen on each 
+iteration:</p>
+<ul>
+<li>Add in a new circle if it’s required, set its x and y coordinates based on the data values</li>
+<li>Animate each circle’s x, y and radius based on the new data values</li>
+<li>Remove any circles which are no longer needed</li>
+</ul>
+<p>Doesn’t sound too hard. Fancy taking a look at some code?</p>
+<p><code></code></p><code>
+<ol>
+<li>var vis = d3.select("#visualisation");</li>
+<li></li>
+<li>function update () {</li>
+<li>	var circles = vis.selectAll("circle").data(randomData(), function (d) { return d.id; });</li>
+<li>	circles.enter()</li>
+<li>		.insert("svg:circle")</li>
+<li>			.attr("cx", function (d) { return d.value1; })</li>
+<li>			.attr("cy", function (d) { return d.value2; })</li>
+<li>			.style("fill", "red");</li>
+<li>	</li>
+<li>	circles.transition().duration(1000)</li>
+<li>		.attr("cx", function (d) { return d.value1; })</li>
+<li>		.attr("cy", function (d) { return d.value2; })</li>
+<li>		.attr("r", function (d) { return d.value3; });</li>
+<li> </li>
+<li>	circles.exit ()</li>
+<li>		.transition().duration(1000)</li>
+<li>			.attr("r", 0)</li>
+<li>				.remove ();</li>
+<li> </li>
+<li>	</li>
+<li>	setTimeout (update, 2000);</li>
+<li>}</li>
+<li></li>
+<li>update ();</li>
+</ol>
+</code><p><code></code></p>
+<p><a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-demo1.html">See it in action!</a> Notice a problem though? Some of the data values are so large that they push the circles off of the screen :( We <em>could</em> fix this by editing the functions which return the values (the ones inside the <code>attr</code> blocks), but it’d be dull if they had to be changed every time some new data was added. If only there was a better way…</p>
+<h2>Domain and range</h2>
+<p>Every time you come across something which feels like it should have been done before, you should take a look at the <a href="https://github.com/mbostock/d3/wiki/API-Reference">d3 API reference</a>.
+ You’ll find that most of the things you want to be able to do are 
+already part of the library (or there’s a plugin for it). Parsing dates,
+ loading and reading CSV files, code for chart layouts, and the ones 
+which will help us out here: domain and range.</p>
+<p>Instead of doing the maths ourselves, we can use the d3 scale 
+functions to do all of the hard work for us! We need to know two things:
+ </p>
+<ol>
+<li>maximum and minimum input values – i.e. the data values, which is called the <em>domain</em>. I know that my <code>randomData</code> function returns values between 0 and 300, so we’ll plug those in</li>
+<li>maximum and minimum output values – i.e. the pixel values, which is called the <em>range</em>.
+ The SVG in the demo is 200×200 so those are the values we’ll need. 
+Except that the circles’ radii can be up to 20 pixels, so let’s shave 
+those off and set the range to be 20—180.</li>
+</ol>
+<p>I’ve highlighted the bits which have changed in green in the code listing below.</p>
+<p><code></code></p><code>
+<ol>
+<li>var vis = d3.select("#visualisation"),</li>
+<li><span style="color: green">	xRange = d3.scale.linear().range ([20, 180]).domain([0, 300]),</span></li>
+<li><span style="color: green">	yRange = d3.scale.linear().range ([20, 180]).domain([0, 300]);</span></li>
+<li></li>
+<li>function update () {</li>
+<li>	var circles = vis.selectAll("circle").data(randomData(), function (d) { return d.id; });</li>
+<li>	circles.enter()</li>
+<li>		.insert("svg:circle")</li>
+<li>			.attr("cx", function (d) { <span style="color: green">return xRange (d.value1);</span> })</li>
+<li>			.attr("cy", function (d) { <span style="color: green">return yRange (d.value2);</span> })</li>
+<li>			.style("fill", "red")</li>
+<li>	</li>
+<li>	circles.transition().duration(1000)</li>
+<li>		.attr("cx", function (d) { <span style="color: green">return xRange(d.value1);</span> })</li>
+<li>		.attr("cy", function (d) { <span style="color: green">return yRange(d.value2);</span> })</li>
+<li>		.attr("r", function (d) { <span style="color: green">return d.value3;</span> })</li>
+<li> </li>
+<li>	circles.exit ()</li>
+<li>		.transition().duration(1000)</li>
+<li>			.attr("r", 0)</li>
+<li>				.remove ();</li>
+<li>	</li>
+<li>	setTimeout (update, 2000)</li>
+<li>}</li>
+<li></li>
+<li>update ();</li>
+</ol>
+</code><p><code></code></p>
+<p><a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-demo2.html">See the updated demo!</a></p>
+<h2>Take it ease-y</h2>
+<p>So the demo looks pretty cool, but to be honest, the animations could
+ feel a little sexier. Simply having a visualisation which looks cool, 
+has pretty colours and moves won’t necessarily make it any good or fun 
+to play with. You can put all the time in the world into making it work,
+ but if it doesn’t feel right, it can just feel, well, crap. </p>
+<p>You’ve probably heard of easing before – it’s what makes the 
+animations feel different. There are loads of different easing equations
+ to play with, and if you’re adventurous enough you can even create your
+ own. One of my favourites is “exponential in and out” which means that 
+the animation will start slowly, speed up, then slow down again at the 
+end. All you need to do in d3 to use an easing equation is add it into 
+the method chain. </p>
+<p>I won’t post the entire code listing again this time, just the bit which has changed. </p>
+<p><code></code></p><code>
+<ol>
+<li>// to replace line 12 of the previous listing
+</li><li>circles.transition().duration(1000).ease("exp-in-out")</li>
+<li> </li>
+<li>// to replace line 18 of the previous listing</li>
+<li>		.transition().duration(1000).ease("exp-in-out")</li>
+</ol>
+</code><p><code></code></p>
+<p>It’s a subtle change, and it’s sometimes difficult to pick which is 
+best, but if you keep playing with them for long enough you’ll find the 
+one which adds that extra 10% to how good your visualisation feels. (I 
+also think it’s one of the most fun parts of building something like 
+this.) Have a look at the <a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-demo3.html">visualisation with easing</a>. </p>
+<p>If you’d like to know more about easing equations (or just want to play with them), check out this <a href="http://gizma.com/easing/">interactive demo</a>. </p>
+<h2>Add in some axes</h2>
+<p>What we have is pretty awesome so far, it displays circles which 
+represent some data, and we’ve got them animating nicely between the 
+different values. But what are these values? The major thing that we’re 
+missing from the visualisation is context. Let’s add in some axes. </p>
+<p>d3 has an axis function which can build an axis, label it, and add 
+tick values (lines) in sensible locations based on the domain of a range
+ function – like our <code>xRange</code> or <code>yRange</code>. You can style the parts of the axis with CSS too, which is pretty nifty.</p>
+<p>The code you’ll need to build one of these axes is listed below. When
+ JavaScript programs start to get larger, it’s a good idea to define a 
+couple of extra variables so that there are fewer magic numbers in the 
+code, so you’ll notice a few other simple things have changed in this 
+code listing too. Names will make a lot more sense to you than the 
+numbers when you come back to edit your visualisation in the future!</p>
+<p><code></code></p><code>
+<ol>
+<li>var vis = d3.select("#visualisation"),</li>
+<li><span style="color: green">	WIDTH = 200,</span></li>
+<li><span style="color: green">	HEIGHT = 200,</span></li>
+<li><span style="color: green">	MARGINS = {top: 20, right: 20, bottom: 20, left: 30},</span></li>
+<li><span style="color: green">	xRange = d3.scale.linear().range ([MARGINS.left, WIDTH - MARGINS.right]).domain([0, 300]),</span></li>
+<li><span style="color: green">	yRange = d3.scale.linear().range ([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([0, 300]),</span></li>
+<li><span style="color: green">	xAxis = d3.svg.axis() // generate an axis</span></li>
+<li><span style="color: green">		.scale(xRange) // set the range of the axis</span></li>
+<li><span style="color: green">		.tickSize(5) // height of the ticks</span></li>
+<li><span style="color: green">		.tickSubdivide(true), // display ticks between text labels</span></li>
+<li><span style="color: green">	yAxis = d3.svg.axis() // generate an axis</span></li>
+<li><span style="color: green">		.scale(yRange) // set the range of the axis</span></li>
+<li><span style="color: green">		.tickSize(5) // width of the ticks</span></li>
+<li><span style="color: green">		.orient("left") // have the text labels on the left hand side</span></li>
+<li><span style="color: green">		.tickSubdivide(true); // display ticks between text labels</span></li>
+
+<li> </li>
+<li>// new init function which will add the axes to the chart, and do
+</li><li>// any other setup information we might want to do.
+</li><li><span style="color: green">function init () {</span></li>
+<li><span style="color: green">	vis.append("svg:g") // add a container for the axis</span></li>
+<li><span style="color: green">		.attr("class", "x axis") // add some classes so we can style it</span></li>
+<li><span style="color: green">		.attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")") // move it into position</span></li>
+<li><span style="color: green">		.call(xAxis); // finally, add the axis to the visualisation</span></li>
+<li> </li>
+<li><span style="color: green">	vis.append("svg:g")</span></li>
+<li><span style="color: green">		.attr("class", "y axis")</span></li>
+<li><span style="color: green">		.attr("transform", "translate(" + (MARGINS.left) + ",0)")</span></li>
+<li><span style="color: green">		.call(yAxis);</span></li>
+<li> </li>
+<li><span style="color: green">	update ();</span></li>
+<li><span style="color: green">}</span></li>
+<li></li>
+<li>function update () {</li>
+<li>	var circles = vis.selectAll("circle").data(randomData(), function (d) { return d.id; })</li>
+<li>	circles</li>
+<li>		.enter()</li>
+<li>			.insert("svg:circle")</li>
+<li>				.attr("cx", function (d) { return xRange (d.value1); })</li>
+<li>				.attr("cy", function (d) { return yRange (d.value2); })</li>
+<li>				.style("fill", "red")</li>
+<li>	</li>
+<li>	circles</li>
+<li>		.transition().duration(1000).ease("exp-in-out")</li>
+<li>			.attr("cx", function (d) { return xRange(d.value1); })</li>
+<li>			.attr("cy", function (d) { return yRange(d.value2); })</li>
+<li>			.attr("r", function (d) { return d.value3; })</li>
+<li></li>
+<li>	circles.exit ()</li>
+<li>		.transition().duration(1000).ease("exp-in-out")</li>
+<li>			.attr("r", 0)</li>
+<li>				.remove ();</li>
+<li></li>
+<li>	</li>
+<li>	setTimeout (update, 2000)</li>
+<li>}</li>
+<li> </li>
+<li><span style="color: green">// let's do this</span></li>
+<li><span style="color: green">	init();</span></li>
+<li></li>
+</ol>
+</code><p><code></code></p>
+<p>The following CSS will give you some nice looking minimal axes.</p>
+<p><code></code></p><code>
+<ol>
+<li>.axis text</li>
+<li>{</li>
+<li>	fill: #333;</li>
+<li>	font-family: sans-serif;</li>
+<li>	font-size: 10px;</li>
+<li>}</li>
+<li>.axis .domain</li>
+<li>{</li>
+<li>	opacity: 0;</li>
+<li>}</li>
+<li>.tick</li>
+<li>{</li>
+<li>	stroke: #ccc;</li>
+<li>}</li>
+</ol>
+</code><p><code></code></p>
+<p><a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-demo4.html">See it in action</a></p>
+<p>Because the axes are getting their values from the range functions, 
+if you update the domain of the range function, the scale can update 
+itself too. Let’s give this a whirl by updating our code so that domain 
+of our range functions is the set of values between the minimum in the 
+dataset and the maximum in the dataset. That is, on each update, we’ll 
+find the minimum value that the data has, and the maximum, and apply 
+them to the range using the <code>domain</code> function, just like when we set them up. </p>
+<p>Adding the following to the <code>update</code> function will do just that. </p>
+<p><code></code></p><code>
+<ol>
+<li>// because the axes aren't data points, we need a transition</li>
+<li>// object to change their values</li>
+<li>var transition = vis.transition().duration(1000).ease("exp-in-out"); </li>
+<li></li>
+<li>// update the domain of the x range</li>
+<li>xRange.domain([</li>
+<li>	d3.min (newData, function(d) { return d.value1; }),</li>
+<li>	d3.max (newData, function(d) { return d.value1; })</li>
+<li>]);</li>
+<li>// update the domain of the y range</li>
+<li>yRange.domain([</li>
+<li>	d3.min (newData, function(d) { return d.value2; }),</li>
+<li>	d3.max (newData, function(d) { return d.value2; })</li>
+<li>]);</li>
+<li></li>
+<li>// transition the axes</li>
+<li>transition.select(".x.axis").call(xAxis);</li>
+<li>transition.select(".y.axis").call(yAxis);</li>
+</ol>
+</code><p><code></code></p>
+<p>It’s a little vomit inducing (and probably a little confusing to look at and understand), <a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-demo5.html">but here’s a proof of concept</a>. </p>
+<h2>Loading real data</h2>
+<p>Believe it or not, we’re not far from the finished product now. There
+ are data points which can be positioned at an (x,y) coordinate which 
+automatically gets scaled to fit onto the graph. These data points are 
+circles whose radii can be varied to visualise a third dimension of 
+data. We have axes which we’re able to update and data points which we 
+can animate between states simply by updating the data. All that we have
+ left to do is to load in some real data, update the data points and 
+axes, and add a couple of HTML form elements to use as controls to cause
+ further updates (which is in the final demo).</p>
+<p>Are you ready to visualise some real data?</p>
+<p><code></code></p><code>
+<ol>
+<li>var vis = d3.select("#visualisation"),</li>
+<li>	WIDTH = 200,</li>
+<li>	HEIGHT = 200,</li>
+<li>	MARGINS = {top: 20, right: 20, bottom: 20, left: 30},</li>
+<li>	xRange = d3.scale.linear().range ([MARGINS.left, WIDTH - MARGINS.right]).domain([0, 300]),</li>
+<li>	yRange = d3.scale.linear().range ([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([0, 300]),</li>
+<li>	xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickSubdivide(true),</li>
+<li>	yAxis = d3.svg.axis().scale(yRange).tickSize(5).orient("left").tickSubdivide(true),</li>
+<li>	drawingData;</li>
+<li></li>
+<li>function init () {</li>
+<li> // load the csv file, run a callback when it's loaded</li>
+<li>	d3.csv("bolliger-mabillard.csv", function (data) {</li>
+<li>		// add the x axis
+</li><li>		vis.append("svg:g")</li>
+<li>			.attr("class", "x axis")</li>
+<li>			.attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")</li>
+<li>			.call(xAxis);</li>
+<li>		// add the y axis
+</li><li>		vis.append("svg:g")</li>
+<li>			.attr("class", "y axis")</li>
+<li>			.attr("transform", "translate(" + (MARGINS.left) + ",0)")</li>
+<li>			.call(yAxis);</li>
+<li>		// draw the graph!
+</li><li>		update (data);</li>
+<li>	});</li>
+<li>}</li>
+<li></li>
+<li></li>
+<li>function update (drawingData) {</li>
+<li>	var circles = vis.selectAll("circle").data(drawingData, function (d) { return d.name; }),</li>
+<li>	// because the axes aren't data points, we need a transition</li>
+<li>	// object to change their values</li>
+<li>	transition = vis.transition().duration(1000).ease("exp-in-out"); </li>
+<li></li>
+<li></li>
+<li>	xRange.domain([</li>
+<li>		d3.min (drawingData, function(d) { return +d['inversions']; }),</li>
+<li>		d3.max (drawingData, function(d) { return +d['inversions']; })</li>
+<li>	]);</li>
+<li></li>
+<li>	yRange.domain([</li>
+<li>		d3.min (drawingData, function(d) { return +d['speed']; }),</li>
+<li>		d3.max (drawingData, function(d) { return +d['speed']; })</li>
+<li>	]);</li>
+<li></li>
+<li>	transition.select(".x.axis").call(xAxis);</li>
+<li>	transition.select(".y.axis").call(yAxis);</li>
+<li></li>
+<li></li>
+<li>	circles</li>
+<li>		.enter()</li>
+<li>			.insert("svg:circle")</li>
+<li>				.attr("cx", function (d) { return xRange (+d['inversions']); })</li>
+<li>				.attr("cy", function (d) { return yRange (+d['speed']); })</li>
+<li>				.style("fill", "red")</li>
+<li>	</li>
+<li>	circles</li>
+<li>		.transition().duration(1000).ease("exp-in-out")</li>
+<li>			.attr("cx", function (d) { return xRange(+d['inversions']); })</li>
+<li>			.attr("cy", function (d) { return yRange(+d['speed']); })</li>
+<li>			.attr("r", function (d) { return (+d.opened - 1989) / 5; /* I 
+cheated here for simplicity and found a ratio which worked */ })</li>
+<li>	</li>
+<li></li>
+<li>	circles.exit ()</li>
+<li>		.transition().duration(1000).ease("exp-in-out")</li>
+<li>			.attr("r", 0)</li>
+<li>				.remove ();</li>
+<li></li>
+<li>	</li>
+<li>	setTimeout (update, 2000)</li>
+<li>}</li>
+<li></li>
+<li> </li>
+<li>// ready, steady, go!</li>
+<li>init ();</li>
+</ol>
+</code><p><code></code></p>
+<p><a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-demo6.html">Take a look!</a></p>
+<h2>Putting it all together</h2>
+<p>I have collected 8 datasets which contain a number of details about 
+roller coasters and stored them in csv files. Each dataset represents 
+one roller coaster manufacturing company. So each csv file contains a 
+list of roller coasters built by an individual company. The roller 
+coasters are split into further categories (or “types”) which are listed
+ along with each roller coaster. Other interesting data in each row is 
+the ride’s height, speed, length, duration, inversions (how many times 
+it goes upside down), and the year that it opened. Some of this data is 
+“dirty” which means it contains bad data values (for example, a length 
+of zero feet).</p>
+<p>The visualisation will:</p>
+<ul>
+<li>let you choose which dataset (company) you’d like to look at</li>
+<li>provide a list of checkboxes for each “type” of roller coaster which
+ will let you drill down into a particular type you’d like to find out 
+about (e.g. wooden coasters)</li>
+<li>change the colour of the datapoints to represent the different types (e.g. wooden is red, bobsled is blue)</li>
+<li>list out attributes which can go on the x and y axes, and to change the radius of the data points</li>
+<li>allow you to remove “dirty” data from the plot, leaving more room for the clean data</li>
+</ul>
+<p>There is quite a lot more JavaScript than in the previous examples – 
+this is because of the form controls. Everything which is needed to do 
+the visualisation itself has already been covered, so don’t panic if it 
+feels a bit overwhelming. I won’t go through every piece of JavaScript 
+in the final demo (that would be another article in itself!), but I have
+ commented it all so that hopefully it will make sense to you. If you’re
+ struggling, I’d recommend reading up on arrays, and in particular, 
+their <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array#Iteration_methods">iteration methods</a> – you’ll find those very useful and they’ll need to be second nature if you are serious about data vis.</p>
+<p><code></code></p><code>
+<ol>
+<li>var WIDTH = 800, // width of the graph</li>
+<li>	HEIGHT = 550, // height of the graph</li>
+<li>	MARGINS = {top: 20, right: 20, bottom: 20, left: 60}, // margins around the graph</li>
+<li>	xRange = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]), // x range function</li>
+<li>	yRange = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]), // y range function</li>
+<li>	rRange = d3.scale.linear().range([5, 20]), // radius range function - ensures the radius is between 5 and 20</li>
+<li>	colours = [	// array of colours for the data points. Each coaster type will have a differnet colour</li>
+<li>		"#981C30",</li>
+<li>		"#989415",</li>
+<li>		"#1E4559",</li>
+<li>		"#7F7274",</li>
+<li>		"#4C4A12",</li>
+<li>		"#ffffff",</li>
+<li>		"#4B0612",</li>
+<li>		"#1EAAE4",</li>
+<li>		"#AD5E71",</li>
+<li>		"#000000"</li>
+<li>	],</li>
+<li>	currentDataset, // name of the current data set. Used to track when the dataset changes</li>
+<li>	rawData, // the raw data from the CSV file</li>
+<li>	drawingData, // data with the coasters we don't want to display (dirty or it's "type" is unchecked)</li>
+<li>	xAxis = d3.svg.axis().scale(xRange).tickSize(16).tickSubdivide(true), // x axis function</li>
+<li>	yAxis = d3.svg.axis().scale(yRange).tickSize(10).orient("right").tickSubdivide(true), // y axis function</li>
+<li>	vis; // visualisation selection</li>
+<li></li>
+<li>// runs once when the visualisation loads</li>
+<li>function init () {</li>
+<li>	vis = d3.select("#visualisation");</li>
+<li></li>
+<li>	// add in the x axis</li>
+<li>	vis.append("svg:g") // container element</li>
+<li>		.attr("class", "x axis") // so we can style it with CSS</li>
+<li>		.attr("transform", "translate(0," + HEIGHT + ")") // move into position</li>
+<li>		.call(xAxis); // add to the visualisation</li>
+<li></li>
+<li>	// add in the y axis</li>
+<li>	vis.append("svg:g") // container element</li>
+<li>		.attr("class", "y axis") // so we can style it with CSS</li>
+<li>		.call(yAxis); // add to the visualisation</li>
+<li></li>
+<li>	// load data, process it and draw it</li>
+<li>	update ();</li>
+<li>}</li>
+<li></li>
+<li>// this redraws the graph based on the data in the drawingData variable</li>
+<li>function redraw () {</li>
+<li>	var rollercoasters = vis.selectAll ("circle").data(drawingData, 
+function (d) { return d.id;}), // select the data points and set their 
+data</li>
+<li>		axes = getAxes (); // object containing the axes we'd like to use (duration, inversions, etc.)</li>
+<li></li>
+<li>	// add new points if they're needed</li>
+<li>	rollercoasters.enter()</li>
+<li>		.insert("svg:circle")</li>
+<li>			.attr("cx", function (d) { return xRange (d[axes.xAxis]); })</li>
+<li>			.attr("cy", function (d) { return yRange (d[axes.yAxis]); })</li>
+<li>			.style("opacity", 0)</li>
+<li>			.style("fill", function (d) { return colours[d.type.id]; }); // set fill colour from the colours array</li>
+<li></li>
+<li>	// the data domains or desired axes might have changed, so update them all</li>
+<li>	xRange.domain([</li>
+<li>		d3.min(drawingData, function (d) { return +d[axes.xAxis]; }),</li>
+<li>		d3.max(drawingData, function (d) { return +d[axes.xAxis]; })</li>
+<li>	]);</li>
+<li>	yRange.domain([</li>
+<li>		d3.min(drawingData, function (d) { return +d[axes.yAxis]; }),</li>
+<li>		d3.max(drawingData, function (d) { return +d[axes.yAxis]; })</li>
+<li>	]);</li>
+<li>	rRange.domain([</li>
+<li>		d3.min(drawingData, function (d) { return +d[axes.radiusAxis]; }),</li>
+<li>		d3.max(drawingData, function (d) { return +d[axes.radiusAxis]; })</li>
+<li>	]);</li>
+<li></li>
+<li>	// transition function for the axes</li>
+<li>    var t = vis.transition().duration(1500).ease("exp-in-out");</li>
+<li>    t.select(".x.axis").call(xAxis);</li>
+<li>    t.select(".y.axis").call(yAxis);</li>
+<li></li>
+<li>	// transition the points</li>
+<li>	rollercoasters.transition().duration(1500).ease("exp-in-out")</li>
+<li>		.style("opacity", 1)</li>
+<li>		.style("fill", function (d) { return colours[d.type.id]; }) // set fill colour from the colours array</li>
+<li>		.attr("r", function(d) { return rRange (d[axes.radiusAxis]); })</li>
+<li>		.attr("cx", function (d) { return xRange (d[axes.xAxis]); })</li>
+<li>		.attr("cy", function (d) { return yRange (d[axes.yAxis]); });</li>
+<li></li>
+<li>	// remove points if we don't need them anymore</li>
+<li>	rollercoasters.exit()</li>
+<li>		.transition().duration(1500).ease("exp-in-out")</li>
+<li>		.attr("cx", function (d) { return xRange (d[axes.xAxis]); })</li>
+<li>		.attr("cy", function (d) { return yRange (d[axes.yAxis]); })</li>
+<li>			.style("opacity", 0)</li>
+<li>			.attr("r", 0)</li>
+<li>				.remove();</li>
+<li>}</li>
+<li></li>
+<li>// let's kick it all off!</li>
+<li>init ();</li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li>//////////////////////////////////////////////////////////</li>
+<li>// helper functions - health warning! LOTS of javascript!</li>
+<li>//////////////////////////////////////////////////////////</li>
+<li></li>
+<li>// update the list of checkboxes which allows the selection of coaster types</li>
+<li>function generateTypesList (data) {</li>
+<li>	var i = data.length,</li>
+<li>		typeNames = {},</li>
+<li>		select = document.getElementById("coaster-types"),</li>
+<li>		list = "";</li>
+<li></li>
+<li>	// loop though each coaster and check it's type's name. If we haven't seen</li>
+<li>	// it before, add it to an object so that we can use it to build the list</li>
+<li>	while (i--) {</li>
+<li>		if (typeof typeNames[data[i].type.name] == "undefined") {</li>
+<li>			typeNames[data[i].type.name] = data[i].type.className;</li>
+<li>		}</li>
+<li>	}</li>
+<li>	// loop through the array to generate the list of types</li>
+<li>	for (var key in typeNames) {</li>
+<li>		if (typeNames.hasOwnProperty(key)) {</li>
+<li>			list += '&lt;li class="' + typeNames[key] + 
+'"&gt;&lt;label&gt;&lt;input type="checkbox" checked="checked" value="' +
+ slugify(key) + '"&gt;' + key + '&lt;/label&gt;&lt;/li&gt;';</li>
+<li>		}</li>
+<li>	}</li>
+<li>	// update the form</li>
+<li>	select.innerHTML = list;</li>
+<li>}</li>
+<li></li>
+<li>// return the name of the dataset which is currently selected</li>
+<li>function getChosenDataset () {</li>
+<li>	var select = document.getElementById("dataset");</li>
+<li>	return select.options[select.selectedIndex].value;</li>
+<li>}</li>
+<li></li>
+<li>// take a string and turn it into a WordPress style slug</li>
+<li>function slugify (string) {</li>
+<li>	return string.replace (/([^a-z0-9])/ig, '-').toLowerCase ();</li>
+<li>}</li>
+<li></li>
+<li>// return an object containing the currently selected axis choices</li>
+<li>function getAxes () {</li>
+<li>	var x = document.querySelector("#x-axis input:checked").value,</li>
+<li>		y = document.querySelector("#y-axis input:checked").value,</li>
+<li>		r = document.querySelector("#r-axis input:checked").value;</li>
+<li>	return {</li>
+<li>		xAxis: x,</li>
+<li>		yAxis: y,</li>
+<li>		radiusAxis: r</li>
+<li>	};</li>
+<li>}</li>
+<li></li>
+<li>// after analysis, dirty data is considered to be that which can't be converted</li>
+<li>// to a number, or where the number is 0 (meaning it is unknown)</li>
+<li>function isDirty (data) {</li>
+<li>	var clean = "duration height opened speed length".split(" ").every (function (attribute) {</li>
+<li>		return !isNaN (+data[attribute]) &amp;&amp; +data[attribute] &gt; 0;</li>
+<li>	});</li>
+<li>	return !clean;</li>
+<li>}</li>
+<li></li>
+<li>// return a list of types which are currently selected</li>
+<li>function plottableTypes () {</li>
+<li>	var types = [].map.call (document.querySelectorAll ("#coaster-types
+ input:checked"), function (checkbox) { return checkbox.value;} );</li>
+<li>	return types;</li>
+<li>}</li>
+<li></li>
+<li>// take a raw dataset and remove coasters which shouldn't be displayed</li>
+<li>// (i.e. if it is "dirty" or it's type isn't selected)</li>
+<li>function processData (data) {</li>
+<li>	var processed = [],</li>
+<li>		cullDirty = document.getElementById("cull-dirty").checked,</li>
+<li>		coasterTypes = {},</li>
+<li>		counter = 1;</li>
+<li></li>
+<li>	data.forEach (function (data, index) {</li>
+<li>		var coaster,</li>
+<li>			className = "";</li>
+<li>		if (!(cullDirty &amp;&amp; isDirty(data))) { // don't process it if it's dirty and we want to cull dirty data</li>
+<li>				coaster = {</li>
+<li>					id: index // so that the coasters can animate</li>
+<li>				};</li>
+<li>			for (var attribute in data) {</li>
+<li>				if (data.hasOwnProperty (attribute)) {</li>
+<li>					coaster[attribute] = data[attribute]; // populate the coaster object</li>
+<li>				}</li>
+<li>			}</li>
+<li>			if (typeof coasterTypes[data.type] == "undefined") { // generate a
+ classname for the coaster based on it's type (used for styling)</li>
+<li>				coasterTypes[data.type] = {</li>
+<li>					id: counter - 1,</li>
+<li>					className: 'coastertype-' + counter,</li>
+<li>					name: data.type,</li>
+<li>					slug: slugify(data.type)</li>
+<li>				};</li>
+<li>				counter = counter + 1;</li>
+<li>			}</li>
+<li>			coaster.type = coasterTypes[data.type];</li>
+<li>			processed.push (coaster); // add the coaster to the output</li>
+<li>		}</li>
+<li>	});</li>
+<li></li>
+<li>	return processed; // only contains coasters we're interested in visualising</li>
+<li>}</li>
+<li></li>
+<li>// remove coasters whose type is not selected from a dataset</li>
+<li>function cullUnwantedTypes (coasters) {</li>
+<li>	var typesToDisplay = plottableTypes ();</li>
+<li></li>
+<li>	return coasters.filter (function (coaster) {</li>
+<li>		return typesToDisplay.indexOf(coaster.type.slug) !== -1;</li>
+<li>	});</li>
+<li>}</li>
+<li></li>
+<li>// called every time a form field has changed</li>
+<li>function update () {</li>
+<li>	var dataset = getChosenDataset(), // filename of the chosen dataset csv</li>
+<li>		processedData; // the data while will be visualised</li>
+<li>	// if the dataset has changed from last time, load the new csv file</li>
+<li>	if (dataset != currentDataset) {</li>
+<li>		d3.csv("data/" + dataset + ".csv", function (data) {</li>
+<li>			// process new data and store it in the appropriate variables</li>
+<li>			rawData = data;</li>
+<li>			processedData = processData(data);</li>
+<li>			currentDataset = dataset;</li>
+<li>			generateTypesList(processedData);</li>
+<li>			drawingData = cullUnwantedTypes(processedData);</li>
+<li>			redraw();</li>
+<li>		});</li>
+<li>	} else {</li>
+<li>		// process data based on the form fields and store it in the appropriate variables</li>
+<li>		processedData = processData(rawData);</li>
+<li>		drawingData = cullUnwantedTypes(processedData);</li>
+<li>		redraw();</li>
+<li>	}</li>
+<li>}</li>
+<li></li>
+<li>// listen to the form fields changing</li>
+<li>document.getElementById("cull-dirty").addEventListener ("change", update, false);</li>
+<li>document.getElementById("dataset").addEventListener ("change", update, false);</li>
+<li>document.getElementById("controls").addEventListener ("click", update, false);</li>
+<li>document.getElementById("controls").addEventListener ("keyup", update, false);</li>
+</ol>
+</code><p><code></code></p>
+<p><a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-final.html">View the final demo!</a></p>
+<p>Have a play and see if you can find anything interesting! All of the files used in this tutorial are <a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-demo.zip">available for download</a> if you fancy having a go at playing around with its guts.</p>
+<h2>I love this stuff! What next?</h2>
+<p>Good question.</p>
+<p>What was it that you liked about reading this article? Was it the 
+first part where we were playing with randomly generated data, or did 
+you prefer taking real data, plotting it and finding interesting trends?
+ </p>
+<p>If you liked playing around with shapes, colours &amp; animations, 
+and the data was just a way to make things move, you should check out <a href="http://processing.org/">Processing</a>
+ which is very similar to d3 but is used to create digital and 
+generative art and lets you compile your creations into applications. 
+You can even hook it up to an Arduino and create <a href="http://www.youtube.com/watch?v=-a8wZiXY-R0&amp;feature=plcp&amp;context=C3f9124eUDOEgsToPDskIEXfw6QWbQx8Hq7kYZRnEm">interactive art</a>.</p>
+<p>If the data was more your thing, go out and grab yourself a dataset 
+to play with! You can use my CSV files which are available in the <a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-demo.zip">demo files</a>
+ in the data directory if you’d prefer to dive straight in. Play around 
+with different shapes and experiment with other ways to visualise the 
+data: heatmaps, bar charts, on a map, you’re only limited by your 
+imagination.</p>
+<p>Whatever you choose to do, I hope that this has either helped you get
+ to grips with d3, inspired you to play with data, sparked an interest 
+in making animations in the browser or simply kept you interested enough
+ while reading it. If you make anything interesting, I’d love to hear 
+about it! Tweet me – <a href="http://twitter.com/iblamefish">@iblamefish</a>. </p>
+<p>Go forth and make cool stuff. </p>
+
+					
+	<section id="comments">
+		<h1 class="tk-bello-pro">Comments</h1>
+	
+		<ul>
+				<li class="comment even thread-even depth-1" id="li-comment-30">
+		<article id="comment-30" class="comment">
+			
+			<header>
+				<div class="comment-author vcard">
+					<p><img alt="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/4a77820cc954ab33a0d7933bb60bf044.jpg" class="avatar avatar-60 photo" height="60" width="60"></p>
+					<p><cite class="fn">Heiko</cite> <span class="says">says:</span></p>
+				</div><!-- .comment-author .vcard -->
+							</header>
+			
+			<div class="comment-content">
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#comment-30"><time pubdate="" datetime="2012-01-04T09:13:34+00:00">
+					January 4, 2012 at 9:13 am					</time></a>
+				</div><!-- .comment-meta .commentmetadata -->
+				
+				<p>Good stuff!</p>
+
+				<div class="reply">
+					<a class="comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/?replytocom=30#respond" onclick='return addComment.moveForm("comment-30", "30", "respond", "44")'>Reply</a>				</div><!-- .reply -->
+			</div>
+			
+		</article><!-- #comment-## -->
+	</li>
+	<ul class="children">
+	<li class="comment byuser comment-author-clinton bypostauthor odd alt depth-2" id="li-comment-34">
+		<article id="comment-34" class="comment">
+			
+			<header>
+				<div class="comment-author vcard">
+					<p><img alt="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/494e4122a76b31b98c7f37243f9bb30c.jpg" class="avatar avatar-60 photo" height="60" width="60"></p>
+					<p><cite class="fn"><a href="http://slightlymore.co.uk/" rel="external nofollow" class="url">Clinton Montague</a></cite> <span class="says">says:</span></p>
+				</div><!-- .comment-author .vcard -->
+							</header>
+			
+			<div class="comment-content">
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#comment-34"><time pubdate="" datetime="2012-01-04T17:36:54+00:00">
+					January 4, 2012 at 5:36 pm					</time></a>
+				</div><!-- .comment-meta .commentmetadata -->
+				
+				<p>Thanks Heiko, glad you enjoyed it :)</p>
+<p>Remember to post a link if you make anything cool!</p>
+
+				<div class="reply">
+					<a class="comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/?replytocom=34#respond" onclick='return addComment.moveForm("comment-34", "34", "respond", "44")'>Reply</a>				</div><!-- .reply -->
+			</div>
+			
+		</article><!-- #comment-## -->
+	</li>
+	
+</ul>
+
+	<li class="comment even thread-odd thread-alt depth-1" id="li-comment-51">
+		<article id="comment-51" class="comment">
+			
+			<header>
+				<div class="comment-author vcard">
+					<p><img alt="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/b0204fa687a58cb9f502bf906660936a.jpg" class="avatar avatar-60 photo" height="60" width="60"></p>
+					<p><cite class="fn">Anthony</cite> <span class="says">says:</span></p>
+				</div><!-- .comment-author .vcard -->
+							</header>
+			
+			<div class="comment-content">
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#comment-51"><time pubdate="" datetime="2012-01-10T07:19:59+00:00">
+					January 10, 2012 at 7:19 am					</time></a>
+				</div><!-- .comment-meta .commentmetadata -->
+				
+				<p>Thanks! Your code is easy to follow, love it.</p>
+
+				<div class="reply">
+					<a class="comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/?replytocom=51#respond" onclick='return addComment.moveForm("comment-51", "51", "respond", "44")'>Reply</a>				</div><!-- .reply -->
+			</div>
+			
+		</article><!-- #comment-## -->
+	</li>
+	
+	<li class="comment odd alt thread-even depth-1" id="li-comment-1546">
+		<article id="comment-1546" class="comment">
+			
+			<header>
+				<div class="comment-author vcard">
+					<p><img alt="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/0aa54437df41dbe2c4a2f895050738d3.png" class="avatar avatar-60 photo" height="60" width="60"></p>
+					<p><cite class="fn">Flavius</cite> <span class="says">says:</span></p>
+				</div><!-- .comment-author .vcard -->
+							</header>
+			
+			<div class="comment-content">
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#comment-1546"><time pubdate="" datetime="2012-02-16T08:38:05+00:00">
+					February 16, 2012 at 8:38 am					</time></a>
+				</div><!-- .comment-meta .commentmetadata -->
+				
+				<p>Great man, simply great! Straight and easy to understand ! Tks a lot !</p>
+
+				<div class="reply">
+					<a class="comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/?replytocom=1546#respond" onclick='return addComment.moveForm("comment-1546", "1546", "respond", "44")'>Reply</a>				</div><!-- .reply -->
+			</div>
+			
+		</article><!-- #comment-## -->
+	</li>
+	
+	<li class="comment even thread-odd thread-alt depth-1" id="li-comment-3124">
+		<article id="comment-3124" class="comment">
+			
+			<header>
+				<div class="comment-author vcard">
+					<p><img alt="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/a527d450c5f8e60d75607529922869fa.png" class="avatar avatar-60 photo" height="60" width="60"></p>
+					<p><cite class="fn">Tushar</cite> <span class="says">says:</span></p>
+				</div><!-- .comment-author .vcard -->
+							</header>
+			
+			<div class="comment-content">
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#comment-3124"><time pubdate="" datetime="2012-03-08T18:14:33+00:00">
+					March 8, 2012 at 6:14 pm					</time></a>
+				</div><!-- .comment-meta .commentmetadata -->
+				
+				<p>awesome stuff sir, the final demo is simply too good.</p>
+
+				<div class="reply">
+					<a class="comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/?replytocom=3124#respond" onclick='return addComment.moveForm("comment-3124", "3124", "respond", "44")'>Reply</a>				</div><!-- .reply -->
+			</div>
+			
+		</article><!-- #comment-## -->
+	</li>
+	
+	<li class="comment odd alt thread-even depth-1" id="li-comment-3516">
+		<article id="comment-3516" class="comment">
+			
+			<header>
+				<div class="comment-author vcard">
+					<p><img alt="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/48dd524e36e790184292c1bebc40b519.png" class="avatar avatar-60 photo" height="60" width="60"></p>
+					<p><cite class="fn">doug</cite> <span class="says">says:</span></p>
+				</div><!-- .comment-author .vcard -->
+							</header>
+			
+			<div class="comment-content">
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#comment-3516"><time pubdate="" datetime="2012-03-13T00:17:34+00:00">
+					March 13, 2012 at 12:17 am					</time></a>
+				</div><!-- .comment-meta .commentmetadata -->
+				
+				<p>Excellent ! Thanks for doing this–d3′s documentation is limited 
+to an API Ref, so a step-by-step guide for building a sophisticated data
+ visualization is welcome indeed.  I downloaded the source after 
+following the tutorial; the source is an excellent template to continue 
+learning this library.</p>
+
+				<div class="reply">
+					<a class="comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/?replytocom=3516#respond" onclick='return addComment.moveForm("comment-3516", "3516", "respond", "44")'>Reply</a>				</div><!-- .reply -->
+			</div>
+			
+		</article><!-- #comment-## -->
+	</li>
+	
+	<li class="comment even thread-odd thread-alt depth-1" id="li-comment-3519">
+		<article id="comment-3519" class="comment">
+			
+			<header>
+				<div class="comment-author vcard">
+					<p><img alt="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/494e4122a76b31b98c7f37243f9bb30c.jpg" class="avatar avatar-60 photo" height="60" width="60"></p>
+					<p><cite class="fn">Clinton Montague</cite> <span class="says">says:</span></p>
+				</div><!-- .comment-author .vcard -->
+							</header>
+			
+			<div class="comment-content">
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#comment-3519"><time pubdate="" datetime="2012-03-25T18:42:55+00:00">
+					March 25, 2012 at 6:42 pm					</time></a>
+				</div><!-- .comment-meta .commentmetadata -->
+				
+				<p>Thanks for all of the kind comments!</p>
+<p>@doug I feel your pain! I felt the same when I was learning it, but 
+could see how great it is so persevered. I’m glad that you found the 
+code useful – and even better that you’re using it again and again to 
+keep learning, it’s great fun!</p>
+
+				<div class="reply">
+					<a class="comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/?replytocom=3519#respond" onclick='return addComment.moveForm("comment-3519", "3519", "respond", "44")'>Reply</a>				</div><!-- .reply -->
+			</div>
+			
+		</article><!-- #comment-## -->
+	</li>
+	
+	<li class="comment odd alt thread-even depth-1" id="li-comment-3527">
+		<article id="comment-3527" class="comment">
+			
+			<header>
+				<div class="comment-author vcard">
+					<p><img alt="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/b9fb56ea6bc5d214b469e14533f4e3c5.png" class="avatar avatar-60 photo" height="60" width="60"></p>
+					<p><cite class="fn">Nafis</cite> <span class="says">says:</span></p>
+				</div><!-- .comment-author .vcard -->
+							</header>
+			
+			<div class="comment-content">
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#comment-3527"><time pubdate="" datetime="2012-04-30T15:54:17+00:00">
+					April 30, 2012 at 3:54 pm					</time></a>
+				</div><!-- .comment-meta .commentmetadata -->
+				
+				<p>This was really helpful! There is a three step calling process to
+ apply transition effects but I couldn’t find this anywhere else except 
+this post. Every where the codes are written and explained but no one 
+explained this way!</p>
+<p>Can any one give me any idea of how to load json data from a php 
+file? I tried it with d3.json(somefile.php) and it worked in my pc but 
+didn’t work in an online server. I also tried d3.text() but it didn’t 
+work even in my pc.</p>
+
+				<div class="reply">
+					<a class="comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/?replytocom=3527#respond" onclick='return addComment.moveForm("comment-3527", "3527", "respond", "44")'>Reply</a>				</div><!-- .reply -->
+			</div>
+			
+		</article><!-- #comment-## -->
+	</li>
+	
+	<li class="comment even thread-odd thread-alt depth-1" id="li-comment-3531">
+		<article id="comment-3531" class="comment">
+			
+			<header>
+				<div class="comment-author vcard">
+					<p><img alt="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/1076d46b3052fe7d3638e65c1cdf3b4e.png" class="avatar avatar-60 photo" height="60" width="60"></p>
+					<p><cite class="fn">Thomas</cite> <span class="says">says:</span></p>
+				</div><!-- .comment-author .vcard -->
+							</header>
+			
+			<div class="comment-content">
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#comment-3531"><time pubdate="" datetime="2012-05-04T20:07:23+00:00">
+					May 4, 2012 at 8:07 pm					</time></a>
+				</div><!-- .comment-meta .commentmetadata -->
+				
+				<p>Awesome! I actually came across this while working on something similar (<a href="http://scattersit.herokuapp.com/" rel="nofollow">http://scattersit.herokuapp.com/</a>), but this has more features and is far less vomit inducing than mine. </p>
+<p>Categories…</p>
+
+				<div class="reply">
+					<a class="comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/?replytocom=3531#respond" onclick='return addComment.moveForm("comment-3531", "3531", "respond", "44")'>Reply</a>				</div><!-- .reply -->
+			</div>
+			
+		</article><!-- #comment-## -->
+	</li>
+	
+	<li class="comment odd alt thread-even depth-1" id="li-comment-3545">
+		<article id="comment-3545" class="comment">
+			
+			<header>
+				<div class="comment-author vcard">
+					<p><img alt="" src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/18f766cf6e13800058602422261ffd20.png" class="avatar avatar-60 photo" height="60" width="60"></p>
+					<p><cite class="fn">ser</cite> <span class="says">says:</span></p>
+				</div><!-- .comment-author .vcard -->
+							</header>
+			
+			<div class="comment-content">
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#comment-3545"><time pubdate="" datetime="2012-09-27T13:32:56+00:00">
+					September 27, 2012 at 1:32 pm					</time></a>
+				</div><!-- .comment-meta .commentmetadata -->
+				
+				<p>Best tutorial ever!!</p>
+
+				<div class="reply">
+					<a class="comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/?replytocom=3545#respond" onclick='return addComment.moveForm("comment-3545", "3545", "respond", "44")'>Reply</a>				</div><!-- .reply -->
+			</div>
+			
+		</article><!-- #comment-## -->
+	</li>
+	
+		</ul>
+		
+	</section>		
+
+	
+<section id="comment-form">
+	<h2 class="tk-bello-pro">Leave a comment</h2>
+									<div id="respond">
+				<h3 id="reply-title"> <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.12devsofxmas.co.uk/2012/01/data-visualisation/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://www.12devsofxmas.co.uk/wordpress/wp-comments-post.php" method="post" id="commentform">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p><label for="author">Name<span class="required">*</span></label> <input id="author" name="author" size="30" type="text"></p>
+<p><label for="e-mail">Email<span class="required">*</span></label> <input id="e-mail" name="email" size="30" type="text"></p>
+												<p><label for="comment">Comment</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>												<p class="form-submit">
+							<input name="submit" id="submit" value="Post Comment" type="submit">
+							<input name="comment_post_ID" value="44" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="9f10de9fe5" type="hidden"></p>					</form>
+							</div><!-- #respond -->
+							
+</section>
+				</div><!-- .entry-content -->
+
+			</article><!-- #post-44 -->
+
+			<aside class="sidebar profile">
+
+				
+				<img src="On%20the%20tenth%20day%20of%20Xmas,%20get%20dirty%20with%20data%20using%20d3.js%20_%2012%20Devs%20of%20Xmas_files/clinton-montague.jpg" alt="Clinton Montague">
+
+				<h2 class="tk-bello-pro">Clinton Montague</h2>
+
+				<p>Clinton is a web developer living and working in Oxford. He's 
+been putting pages into the internet since the turn of the millennium, 
+and in recent years has become a bit of a JavaScript fanboy. When not 
+building websites, you'll find him tinkering with an Arduino, taking 
+horrendously bad photos trying to be a photographer, or riding roller 
+coasters.</p>
+
+				<p><a href="http://twitter.com/#%21/iblamefish">Clinton on twitter</a><br>
+				<a href="http://slightlymore.co.uk/">Clinton on the web</a></p>
+
+									<h2 class="tk-bello-pro">Resources</h2>
+					<ul>
+<li><a href="http://mbostock.github.com/d3/">d3.js homepage</a></li>
+<li><a href="https://github.com/mbostock/d3/wiki/API-Reference">d3.js documentation</a></li>
+<li><a href="http://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen.html">Hans Rosling TED talk on data visualisation</a></li>
+<li><a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-demo.zip">Demo files</a></li>
+<li><a href="http://www.12devsofxmas.co.uk/wordpress/wp-content/uploads/2012/01/datavis-final.html">Working demo</a></li>
+</ul>				
+
+			</aside>
+
+				
+						
+			
+
+			</div> <!-- /.container -->
+		</div> <!-- /#content -->
+
+
+		<footer id="site-footer">
+			<div class="container">
+
+				<p class="copyright">12 devs of Xmas is bought to you by Onishiweb, MrQwest and iblamefish. © 2011</p>
+
+				<nav>
+					<ul id="menu-footer-navigation" class="menu"><li id="menu-item-82" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-82"><a href="http://www.12devsofxmas.co.uk/">Home</a></li>
+<li id="menu-item-79" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-79"><a href="http://http//twitter.com/12devsofxmas">Twitter</a></li>
+</ul>				</nav>
+				<p style="display:none">Testing</p>
+
+			</div>
+		</footer>
+
+				<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+	
+
+
+</body></html>
